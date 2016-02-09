@@ -5,7 +5,7 @@ Glavni dio stranice je postavljen - html je pripremljen, napisani su css stilovi
 
 Direktorij koji ste preuzeli je git repozitorij - dajemo plus ako zadaće u nastavku rješavate putem lijepo formiranih commit-ova.
 
-##Instalacija
+## Instalacija
 
 Projekt podesite tako da u konzolu upišete:
 ```shell
@@ -17,7 +17,7 @@ Development startate sa komandom:
 npm run watch:development
 ```
 
-##Zadaci
+## Zadaci
 
 + Nedostaje nam modul sa galerijom fotografija u desnoj koloni.
 Pogledajte kako isti izgleda u priloženom dizajnu (design.png) i pripremite HTML, CSS (SCSS), i JS datoteke.
@@ -40,10 +40,10 @@ Ažurirajte kod tako da se sadržaj forme dohvaća sa url-a (u public direktorij
 
 
 
-##Predaja rješenja
+## Predaja rješenja
 Rješenje nam pošaljite u obliku zip datoteke na hr@trikoder.net
 
-##Korištene tehnologije
+## Korištene tehnologije
 
 + [Sass](http://sass-lang.com/) (CSS Preprocessor)
 + [jQuery](https://jquery.com/) (JS library)
