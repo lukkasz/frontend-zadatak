@@ -4,7 +4,7 @@
   "scripts": {
     "watch:development": "grunt & webpack --watch --progress --colors",
     "build:development": "grunt build & webpack --progress --colors",
-    "start": "concurrent --raw \"npm run watch:development\" \"node server.js\" \"opn http://localhost:9000\""
+    "start": "concurrent --raw \"npm run build:development\" \"npm run watch:development\" \"node server.js\" \"opn http://localhost:9000\""
   },
   "devDependencies": {
     "bourbon": "^4.2.6",
