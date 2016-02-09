@@ -5,14 +5,10 @@ Direktorij koji ste preuzeli je git repozitorij - dajemo plus ako zadaće u nast
 
 ## Instalacija
 Projekt podesite tako da u konzolu upišete:
-```
-npm install
-```
+```npm install```
 
 Development startate sa komandom:
-```
-npm run watch:development
-```
+```npm run watch:development```
 
 ## Zadaci
 + Nedostaje nam modul sa galerijom fotografija u desnoj koloni.
