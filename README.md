@@ -1,7 +1,7 @@
 # Trikoder front-end zadatak
 Potrebno je dovršiti nekolicinu zadatka na pripremljenoj statičnoj stranici. Glavni dio stranice je postavljen - html je pripremljen, napisani su css stilovi i interakcije u javascriptu, procesiranje front-end resursa je automatizirano.
 
-Direktorij koji ste preuzeli je git repozitorij - dajemo plus ako zadaće u nastavku rješavate putem lijepo formiranih commit-ova.
+Projekt se može preuzesti sa adrese http://gitlab-test.trikoder.net/trikoder/frontend-zadatak. Obzirom da je riječ o git repozitoriju - dajemo plus ako zadaće u nastavku rješavate putem lijepo formiranih commit-ova.
 
 ## Instalacija
 Projekt podesite tako da u konzolu upišete:
