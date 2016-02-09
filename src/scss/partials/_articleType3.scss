@@ -1,0 +1,35 @@
+.articleType3 {
+
+    $imageSize: 80; $spacing: 15;
+
+    display: block; position: relative; overflow: hidden; padding-left: em($imageSize + $spacing,10);
+
+    > .imageCont {
+
+        float: left; width: em($imageSize,10); margin-left: em(-$imageSize - $spacing,10);
+
+        > img { display: block; width: 100%; }
+
+    }
+
+    > .title {
+
+        font-size: 1.6em; position: relative; padding-bottom: em(10,16); margin-bottom: em(10,16);
+        @include fontSansBold; color: $colorGrayDark1;
+
+        &:after {
+
+            content: ""; position: absolute; left: 0; bottom: 0; width: em(30,16);
+            border-bottom: 1px solid $colorGrayLight1;
+
+        }
+
+    }
+
+    > .text {
+
+        font-size: 1.3em; line-height: 1.4; color: $colorGrayDark2;
+
+    }
+
+}

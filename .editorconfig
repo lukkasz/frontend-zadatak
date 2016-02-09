@@ -1,0 +1,20 @@
+# EditorConfig helps developers define and maintain consistent
+# coding styles between different editors and IDEs
+# editorconfig.org
+
+# Project Root
+root = true
+
+# Set defaults for all files
+[*]
+end_of_line = lf
+indent_style = space
+charset = utf-8
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Apply to Markdown files
+[*.md]
+insert_final_newline = false
+trim_trailing_whitespace = false

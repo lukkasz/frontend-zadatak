@@ -1,0 +1,58 @@
+.mainSearch {
+
+    position: relative;
+
+    .query {
+
+        @include fontSansLight; @include appearance(none);
+        background: transparent; border: 0;
+
+    }
+
+    .btnSubmit {
+
+        position: absolute; right: 0.8em; top: 0; bottom: 0; height: auto;
+
+        &:before { font-size: 2.3em; color: darken($colorGrayLight1,15%); }
+
+    }
+
+    @include mediaMaxWidth($breakpointMedium) {
+
+        .query {
+
+            font-size: 1.8em; padding: em(15,18) em(40,18) em(15,18) 0; width: 100%;
+            color: $colorGrayDark1;
+
+            @include placeholder { opacity: 1; color: $colorGrayDark2; }
+
+        }
+
+        padding: 0 2em; background-color: #fff;
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        position: absolute; right: 4em; top: 2.7em; width: 40%;
+
+        .query {
+
+            font-size: 2.2em; padding: em(15,22) em(40,22) em(15,22) 0; width: 100%;
+            color: #fff; border-bottom: 1px solid #fff;
+
+            @include placeholder { opacity: 1; color: #fff; }
+
+        }
+
+        .btnSubmit {
+
+            right: 0;
+
+            &:before { font-size: 2.3em; color: #fff; text-align: right; }
+
+        }
+
+    }
+
+}

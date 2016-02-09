@@ -1,0 +1,32 @@
+.listModuleType1 {
+
+    background-color: #fff; padding: 1em 2em;
+    border-bottom: 2px solid $colorGrayLight1;
+
+    > ol {
+
+        padding: 2em 0; counter-reset: section;
+
+        > li {
+
+            font-size: 1.6em; padding: em(8,16) 0;
+            color: $colorGrayDark1;
+
+            &:before {
+
+                counter-increment: section; content: counter(section) ".";
+                @include fontSansBold; margin-right: em(10,16);
+
+            }
+
+        }
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        border-radius: 0.4em;
+
+    }
+
+}

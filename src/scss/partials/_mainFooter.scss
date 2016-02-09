@@ -1,0 +1,23 @@
+.mainFooter {
+
+    background-color: $colorMain1;
+
+    > .fitWrap { padding: 4em 3em; }
+
+    p {
+
+        font-size: 1.6em; color: #fff; line-height: 1.4;
+
+    }
+
+    .copyRight { margin-top: em(20,16); }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        p { float: left; width: 60%; }
+
+        .copyRight { float: right; width: 40%; text-align: right; }
+
+    }
+
+}

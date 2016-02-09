@@ -1,0 +1,28 @@
+@import '../library/all';
+
+@import '../../../node_modules/normalize.css/normalize';
+@import '../../../node_modules/simple-lightbox/dist/simpleLightbox.css';
+
+@import '../partials/normalizePlus';
+@import '../partials/icons';
+@import '../partials/core';
+@import '../partials/animations';
+
+@import '../partials/mainHeader';
+@import '../partials/mainNav';
+@import '../partials/mainSearch';
+@import '../partials/mainFooter';
+@import '../partials/fastSearch';
+
+@import '../partials/titleType1';
+
+@import '../partials/articleType1';
+@import '../partials/articleType2';
+@import '../partials/articleType3';
+
+@import '../partials/listModuleType1';
+@import '../partials/listModuleType2';
+
+@import '../partials/articleListType1';
+
+@import '../partials/loginModal';

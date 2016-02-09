@@ -1,0 +1,122 @@
+.articleType2 {
+
+    display: block; position: relative; padding-left: 30%;
+    background-color: #fff;
+
+    > .title {
+
+        @include fontSansBold;
+        color: $colorGrayDark1; line-height: 1.3; border-bottom: 1px solid $colorGrayLight1;
+
+    }
+
+    > .text {
+
+        font-size: 1.8em; padding: em(20,18); line-height: 1.6;
+        color: $colorGrayDark2;
+
+    }
+
+    > .controls {
+
+        > li {
+
+            float: left; width: percentage(1/3); box-sizing: border-box;
+            border-left: 1px solid $colorGrayLight1;
+
+            &:first-child { border-left: 0; }
+
+        }
+
+        a {
+
+            font-size: 1.4em; display: block; padding: em(40,14) 0 em(15,14) 0;
+            color: $colorGrayDark2; text-align: center;
+
+            > strong { @include fontSansBold; }
+
+            &:before {
+
+                left: 50%; top: 35%; font-size: em(20,14); margin-left: em(-20,20);
+                color: lighten($colorGrayDark2, 15%);
+
+            }
+
+        }
+
+    }
+
+    @include mediaMaxWidth($breakpointLarge) {
+
+        padding-bottom: 8em;
+
+        > .title {
+
+            font-size: 2em; padding: em(15,20) 0; margin: 0 em(20,20);
+
+        }
+
+        > .text {
+
+            font-size: 1.6em; padding: em(15,18) em(20,18);
+
+        }
+
+        > .imageCont {
+
+            position: absolute; left: 2em; top: 2em; width: 26%;
+
+            > img { display: block; width: 100%; }
+
+        }
+
+        > .controls {
+
+            overflow: hidden; position: absolute; left: 0; right: 0; bottom: 0;
+            border: 1px solid $colorGrayLight1; border-width: 1px 0;
+
+        }
+
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        border-radius: 0.4em;
+
+    }
+
+    @include mediaMinWidth($breakpointLarge) {
+
+        overflow: hidden; padding-left: 0;
+        border-bottom: 2px solid $colorGrayLight1;
+
+        > .title {
+
+            font-size: 2.8em; padding: em(20,28) 0; margin: 0 em(20,28);
+
+        }
+
+        > .text {
+
+            font-size: 1.8em; padding: em(20,20);
+
+        }
+
+        > .imageCont {
+
+            @include imgRatio(405/250);
+            display: block; position: relative;
+            border-radius: 0.4em 0.4em 0 0;
+
+        }
+
+        > .controls {
+
+            border-top: 1px solid $colorGrayLight1;
+
+        }
+
+    }
+
+}

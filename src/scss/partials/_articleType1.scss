@@ -1,0 +1,39 @@
+.articleType1 {
+
+    display: block; position: relative;
+
+    img { display: block; width: 100%; }
+
+    > .title {
+
+        @include fontSansBold;
+        @include transition(background-color 0.3s);
+
+        font-size: 2.4em; padding: em(10,24) em(20,24) em(15,24);
+        background-color: $colorMain1; color: #fff;
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        @include imgRatio(9/5);
+        border-radius: 0.4em;
+
+        > .title {
+
+            font-size: 2.3em; position: absolute; left: 0; right: 0; bottom: 0; padding: em(20,23);
+            background-color: rgba($colorMain1, 0.9);
+
+        }
+
+        &:hover .title { background-color: rgba($colorMain1, 0.8); }
+
+    }
+
+    @include mediaMinWidth($breakpointLarge) {
+
+        > .title { font-size: 3.8em; padding: em(20,38); }
+
+    }
+
+}

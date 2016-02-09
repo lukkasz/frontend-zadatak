@@ -1,0 +1,20 @@
+.listModuleType2 {
+
+    background-color: #fff; padding: 1em 2em;
+    border-bottom: 2px solid $colorGrayLight1;
+
+    > ul {
+
+        padding: 3em 0;
+
+        > li { margin-top: 2.5em; &:first-child { margin-top: 0; } }
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        border-radius: 0.4em;
+
+    }
+
+}

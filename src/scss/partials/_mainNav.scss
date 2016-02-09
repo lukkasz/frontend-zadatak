@@ -1,0 +1,95 @@
+.mainNav {
+
+    @include mediaMaxWidth($breakpointMedium) {
+
+        position: absolute; top: 0; left: 0; right: 0;
+
+        > .toggleBtn {
+
+            position: absolute; top: 0; right: 0; height: 6em; width: 6em; z-index: 15;
+
+            &:before { color: #fff; font-size: 2.5em; }
+
+        }
+
+        > .fitWrap {
+
+            position: relative; z-index: 10; display: none;
+            background-color: #FFF;
+
+        }
+
+        a {
+
+            display: block; font-size: 2em; padding: em(10,18) em(20,18);
+            text-transform: uppercase; color: $colorGrayDark2;
+            &:hover { color: $colorMain1; }
+
+        }
+
+        .signIn {
+
+            color: lighten($colorGrayDark2, 25%);
+
+            &:before { display: none; }
+
+        }
+
+        &.opened {
+
+            bottom: 0; background-color: #fff; z-index: 100; padding: 3em 2em;
+            @include animation(slideDownFadeIn 0.3s ease-out);
+
+            > .fitWrap {
+
+                display: block;
+
+            }
+
+            > .toggleBtn:before { color: $colorGrayDark2; }
+
+        }
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        position: relative; background-color: #fff; border-bottom: 2px solid $colorGrayLight1;
+
+        > .toggleBtn { display: none; }
+
+        > .fitWrap { padding: 0 1.5em; }
+
+        li { float: left; }
+
+        a {
+
+            display: block; font-size: 1.6em; padding: em(20,18) em(15,18);
+            text-transform: uppercase; color: $colorGrayDark2; @include transition(color 0.3s);
+
+            &:hover { color: $colorMain1; }
+
+        }
+
+        .signIn {
+
+            float: right; padding-left: em(45,18);
+            &:before { font-size: 1.4em; color: $colorMain1; }
+
+        }
+
+    }
+
+    @include mediaMinWidth($breakpointLarge) {
+
+        > .fitWrap { padding: 0 1em; }
+
+        a {
+
+            font-size: 1.8em; padding: em(20,18);
+
+        }
+
+    }
+
+}

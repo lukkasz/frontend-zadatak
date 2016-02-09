@@ -1,0 +1,28 @@
+.detailArticle {
+
+    padding: 2em; background-color: #fff;
+
+    > .title {
+
+        font-size: 3em; padding-bottom: em(20,30); margin-bottom: em(20,30);
+        border-bottom: 1px solid $colorGrayLight1; @include fontSansBold;
+
+    }
+
+    .cmsHtml {
+
+        font-size: 1.7em; color: $colorGrayDark1;
+
+        p { margin-bottom: em(25,17); line-height: 1.7; }
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        padding: 3em; border-radius: 0.4em;
+
+        > .title { font-size: 4.2em; }
+
+    }
+
+}

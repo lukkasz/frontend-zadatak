@@ -1,0 +1,90 @@
+html,
+body { min-height: 100%; }
+
+html {
+
+    @include fontSansNormal;
+    font-size: 62.5%; background: #F4F4F4;
+
+}
+
+body {
+
+    font-size: 1em; min-width: 32em; position: relative;
+
+}
+
+//--------------------------------------------------------------
+// Helper classes
+//--------------------------------------------------------------
+.cf {
+
+    @include clearfix
+
+}
+
+.nBtn {
+
+    @include normalizeButton;
+
+}
+
+.icr {
+
+    @include iconReplacement(40);
+    &:before { text-align: center; }
+
+}
+
+.btnType1 {
+
+    @include btnType1();
+
+}
+
+//--------------------------------------------------------------
+// Layout helpers
+//--------------------------------------------------------------
+.fitWrap {
+
+    box-sizing: border-box;
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        max-width: 120em; margin: 0 auto;
+
+    }
+
+}
+
+.mainContentArea {
+
+    @include mediaMaxWidth($breakpointMedium) {
+
+        > .sideCol > section { margin-top: 1em; &:first-child { margin-top: 0; } }
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        $gutter: 30; $sidebarSize: 300;
+
+        padding: em($gutter,10);
+
+        > .mainCol {
+
+            float: left; width: 100%; padding-right: em($gutter + $sidebarSize,10); box-sizing: border-box;
+
+        }
+
+        > .sideCol {
+
+            float: left; width: em($sidebarSize,10); margin-left: em(-1*$sidebarSize,10);
+
+            > section { margin-top: 3em; &:first-child { margin-top: 0; } }
+
+        }
+
+    }
+
+}

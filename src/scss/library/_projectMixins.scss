@@ -1,0 +1,49 @@
+@mixin fontSansLight        { font-family: 'Lato', sans-serif; font-weight: 300; font-style:normal }
+@mixin fontSansNormal       { font-family: 'Lato', sans-serif; font-weight: 400; font-style:normal }
+@mixin fontSansSemiBold     { font-family: 'Lato', sans-serif; font-weight: 600; font-style:normal }
+@mixin fontSansBold         { font-family: 'Lato', sans-serif; font-weight: 700; font-style:normal }
+
+@function asset($path) {
+    @return '../../' + $path;
+}
+
+@mixin imgRatio ($ratio) {
+
+    overflow: hidden; padding-bottom: percentage(1/$ratio);
+
+    > img { position: absolute; left: 0; top: 0; width: 100%; height: auto; }
+
+}
+
+@mixin btnType1 {
+
+    text-align: right; display: block; overflow: hidden;
+
+    > span {
+
+        font-size: 1.4em; display: inline-block; position: relative; padding: em(7,14) 0;
+        @include fontSansBold; color: $colorMain1;
+
+        &:before {
+
+            content: ""; position: absolute; right: 100%; margin-right: em(10,14); width: 100em; top: 50%;
+            border-top: 1px solid $colorGrayLight1;
+
+        }
+
+    }
+
+    &:hover > span { color: $colorGrayDark1; }
+
+}
+
+@mixin btnType2 {
+
+    @include fontSansBold;
+
+    font-size: 1.4em; display: inline-block; padding: em(12,14) em(20,14);
+    color: #fff; text-transform: uppercase; background-color: $colorMain1;
+    text-align: center; letter-spacing: 0.05em;
+
+}
+

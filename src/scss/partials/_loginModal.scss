@@ -1,0 +1,29 @@
+.loginModal {
+
+    padding: 2em; min-width: 24em; display: none;
+
+    .slbContent & { display: block; }
+
+    > input {
+
+        font-size: 1.6em; display: block; width: 100%; padding: em(12,16) em(10,16);
+        border: 1px solid $colorGrayLight1; background: transparent;
+        @include appearance(none);
+
+        margin: em(20,16) 0;
+
+    }
+
+    .submitBtn {
+
+        @include btnType2; display: block; width: 100%;
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        min-width: 32em;
+
+    }
+
+}

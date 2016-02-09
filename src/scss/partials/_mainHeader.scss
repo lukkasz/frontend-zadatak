@@ -1,0 +1,51 @@
+.mainHeader {
+
+    background-color: $colorMain1; border-bottom: 2px solid $colorGrayLight1;
+
+    > .fitWrap { padding-top: 6em; }
+
+    .logo {
+
+        position: absolute; left: 0; top: 0; width: 8em; height: 6em; z-index: 5;
+
+        &:before {
+
+            color: #fff; font-size: 5em; width: em(80,50);
+
+        }
+
+    }
+
+    @include mediaMinWidth($breakpointMedium) {
+
+        position: relative; border: 0;
+
+        > .fitWrap { padding-top: 12em; position: relative; }
+
+        &:before {
+
+            content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+            background: $colorMain1 url(asset('images/headerback.jpg')); opacity: 0.1;
+            background-size: cover;
+
+        }
+
+        .logo {
+
+            @include transition(margin-top 0.2s);
+            width: 16em; height: 12em;
+
+            &:hover { margin-top: -0.5em; }
+
+            &:before {
+
+                font-size: 9em; width: em(160,90);
+                color: #fff;
+
+            }
+
+        }
+
+    }
+
+}
