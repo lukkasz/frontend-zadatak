@@ -1,4 +1,4 @@
-#Trikoder front-end zadatak
+# Trikoder front-end zadatak
 
 Potrebno je dovršiti nekolicinu zadatka na pripremljenoj statičnoj stranici.
 Glavni dio stranice je postavljen - html je pripremljen, napisani su css stilovi i interakcije u javascriptu, procesiranje front-end resursa je automatizirano.
