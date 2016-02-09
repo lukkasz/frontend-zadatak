@@ -8,7 +8,9 @@ Projekt podesite tako da u konzolu upišete:
 ```npm install```
 
 Development startate sa komandom:
-```npm run watch:development```
+```npm start```
+
+(U slučaju da vam prethodna naredba ne funkcionira, pokrenite `npm run watch:development`)
 
 ## Zadaci
 + Nedostaje nam modul sa galerijom fotografija u desnoj koloni.

@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "scripts": {
     "watch:development": "grunt & webpack --watch --progress --colors",
-    "build:development": "grunt build & webpack --progress --colors"
+    "build:development": "grunt build & webpack --progress --colors",
+    "start": "concurrent --raw \"npm run watch:development\" \"node server.js\" \"opn http://localhost:9000\""
   },
   "devDependencies": {
     "bourbon": "^4.2.6",
+    "concurrent": "^0.3.2",
+    "concurrently": "^1.0.0",
+    "express": "^4.13.4",
     "fastsearch": "^1.9.1",
     "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-include-replace": "^3.2.0",
@@ -19,6 +24,7 @@
     "jquery-simple-view": "^2.0.2",
     "load-grunt-tasks": "^0.6.0",
     "normalize.css": "~3.0.3",
+    "opn-cli": "^1.0.0",
     "pelinkovac": "~0",
     "simple-lightbox": "^1.2.8",
     "webpack": "^1.12.12"
