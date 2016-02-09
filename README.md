@@ -1,24 +1,20 @@
 # Trikoder front-end zadatak
-
-Potrebno je dovršiti nekolicinu zadatka na pripremljenoj statičnoj stranici.
-Glavni dio stranice je postavljen - html je pripremljen, napisani su css stilovi i interakcije u javascriptu, procesiranje front-end resursa je automatizirano.
+Potrebno je dovršiti nekolicinu zadatka na pripremljenoj statičnoj stranici. Glavni dio stranice je postavljen - html je pripremljen, napisani su css stilovi i interakcije u javascriptu, procesiranje front-end resursa je automatizirano.
 
 Direktorij koji ste preuzeli je git repozitorij - dajemo plus ako zadaće u nastavku rješavate putem lijepo formiranih commit-ova.
 
 ## Instalacija
-
 Projekt podesite tako da u konzolu upišete:
-```shell
+```
 npm install
 ```
 
 Development startate sa komandom:
-```shell
+```
 npm run watch:development
 ```
 
 ## Zadaci
-
 + Nedostaje nam modul sa galerijom fotografija u desnoj koloni.
 Pogledajte kako isti izgleda u priloženom dizajnu (design.png) i pripremite HTML, CSS (SCSS), i JS datoteke.
 Kada se klikne na thumbnail trebala bi se pokazati uvećana slika u modalnom prozoru / lightboxu.
@@ -38,13 +34,10 @@ Ažurirajte kod tako da se sadržaj forme dohvaća sa url-a (u public direktorij
 	+ Slično probajte napraviti za galeriju fotografija tako da se lightbox plugin učita nakon što korisnik klikne na neki od thumbnailova
 	+ Dodatan plus dobijete ako i CSS resurse za gornje primjere učitavate samo kad je potrebno
 
-
-
 ## Predaja rješenja
 Rješenje nam pošaljite u obliku zip datoteke na hr@trikoder.net
 
 ## Korištene tehnologije
-
 + [Sass](http://sass-lang.com/) (CSS Preprocessor)
 + [jQuery](https://jquery.com/) (JS library)
 + [Grunt](http://gruntjs.com/) (JS task runner)
