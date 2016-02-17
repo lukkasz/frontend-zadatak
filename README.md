@@ -33,7 +33,7 @@ Ažurirajte kod tako da se sadržaj forme dohvaća sa url-a (u public direktorij
 	+ Dodatan plus dobijete ako i CSS resurse za gornje primjere učitavate samo kad je potrebno
 
 ## Predaja rješenja
-Rješenje nam pošaljite u obliku zip datoteke na hr@trikoder.net
+Rješenje nam pošaljite u obliku zip datoteke (ili poveznice na datoteku / repozitorij) na posao@trikoder.net
 
 ## Korištene tehnologije
 + [Sass](http://sass-lang.com/) (CSS Preprocessor)
