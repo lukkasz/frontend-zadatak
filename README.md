@@ -1,7 +1,7 @@
 # Trikoder front-end zadatak
 Potrebno je dovršiti nekolicinu zadatka na pripremljenoj statičnoj stranici. Glavni dio stranice je postavljen - html je pripremljen, napisani su css stilovi i interakcije u javascriptu, procesiranje front-end resursa je automatizirano.
 
-Projekt se može preuzesti sa adrese http://gitlab-test.trikoder.net/trikoder/frontend-zadatak. Obzirom da je riječ o git repozitoriju - dajemo plus ako zadaće u nastavku rješavate putem lijepo formiranih commit-ova.
+Projekt se može preuzeti sa adrese http://gitlab-test.trikoder.net/trikoder/frontend-zadatak. Obzirom da je riječ o git repozitoriju - dajemo plus ako zadaće u nastavku rješavate putem lijepo formiranih commit-ova.
 
 ## Instalacija
 Projekt podesite tako da u konzolu upišete:
@@ -22,7 +22,7 @@ Slike u maloj i velikoj varijaciji možete pronaći u "public/images" direktorij
 + Korisnicima bi valjalo pripremiti optimizirane, minificirane slike. Pronađite i upogonite grunt task pomoću
 kojeg minifikaciju slika možemo odrađivati automatski.
 
-+ Klikom na "Sign in" dugme u navigaciji pojavljuje se modalni prozor sa login formom.
++ Klikom na "Sign in" gumb u navigaciji pojavljuje se modalni prozor sa login formom.
 U trenutnoj (ne baš idealnoj) implementaciji sadržaj (html) te forme se nalazi u skrivenom modulu na dnu stranice koji se klonira prilikom
 instanciranja lightbox-a.
 Ažurirajte kod tako da se sadržaj forme dohvaća sa url-a (u public direktoriju nalazi se pripremljeni login-modal.html kojeg možete dohvatiti kada treba)
