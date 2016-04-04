@@ -8,9 +8,7 @@ module.exports = View.extend({
     delegatedEvents: false,
 
     initialize: function() {
-
         this.setupBaseComponents();
-
     },
 
     events: {
@@ -18,7 +16,6 @@ module.exports = View.extend({
 
             e.preventDefault();
             this.showLoginModal();
-
         }
     },
 
@@ -26,7 +23,6 @@ module.exports = View.extend({
 
         this.mainNav = this.addView(new MainNav({$el: $('.mainNav')}));
         this.mainSearch =  this.addView(new MainSearch({$el: $('.mainSearch')}));
-
         return this;
 
     },

@@ -1,0 +1,28 @@
+.galleryModule {
+    background-color: #fff; padding: 1em 2em;
+    border-bottom: 2px solid $colorGrayLight1;
+    
+    > ul {
+        
+        > li {
+          box-sizing: border-box;   
+          width: 33%;
+          padding-right: 5px;
+          padding-bottom: 5px;
+          float: left;
+          
+          &:nth-child(3n+0) {
+            padding-right: 0;
+          }
+          
+        }
+    }
+    
+    .gallery-thumb {
+        
+        > img {
+            width: 100%;
+        }
+        
+    }
+}

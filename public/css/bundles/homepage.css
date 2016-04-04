@@ -1676,6 +1676,28 @@ body {
   }
 }
 
+.galleryModule {
+  background-color: #fff;
+  padding: 1em 2em;
+  border-bottom: 2px solid #EAEAEA;
+}
+
+.galleryModule > ul > li {
+  box-sizing: border-box;
+  width: 33%;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  float: left;
+}
+
+.galleryModule > ul > li:nth-child(3n+0) {
+  padding-right: 0;
+}
+
+.galleryModule .gallery-thumb > img {
+  width: 100%;
+}
+
 .articleListType1 {
   padding-top: 1em;
 }

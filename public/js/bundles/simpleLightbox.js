@@ -1,34 +1,6 @@
 /******/ (function(modules) { // webpackBootstrap
-/******/ 	// install a JSONP callback for chunk loading
-/******/ 	var parentJsonpFunction = window["webpackJsonp"];
-/******/ 	window["webpackJsonp"] = function webpackJsonpCallback(chunkIds, moreModules) {
-/******/ 		// add "moreModules" to the modules object,
-/******/ 		// then flag all "chunkIds" as loaded and fire callback
-/******/ 		var moduleId, chunkId, i = 0, callbacks = [];
-/******/ 		for(;i < chunkIds.length; i++) {
-/******/ 			chunkId = chunkIds[i];
-/******/ 			if(installedChunks[chunkId])
-/******/ 				callbacks.push.apply(callbacks, installedChunks[chunkId]);
-/******/ 			installedChunks[chunkId] = 0;
-/******/ 		}
-/******/ 		for(moduleId in moreModules) {
-/******/ 			modules[moduleId] = moreModules[moduleId];
-/******/ 		}
-/******/ 		if(parentJsonpFunction) parentJsonpFunction(chunkIds, moreModules);
-/******/ 		while(callbacks.length)
-/******/ 			callbacks.shift().call(null, __webpack_require__);
-
-/******/ 	};
-
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
-/******/ 	// object to store loaded and loading chunks
-/******/ 	// "0" means "already loaded"
-/******/ 	// Array means "loading", array contains callbacks
-/******/ 	var installedChunks = {
-/******/ 		0:0
-/******/ 	};
 
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -54,29 +26,6 @@
 /******/ 		return module.exports;
 /******/ 	}
 
-/******/ 	// This file contains only the entry chunk.
-/******/ 	// The chunk loading function for additional chunks
-/******/ 	__webpack_require__.e = function requireEnsure(chunkId, callback) {
-/******/ 		// "0" is the signal for "already loaded"
-/******/ 		if(installedChunks[chunkId] === 0)
-/******/ 			return callback.call(null, __webpack_require__);
-
-/******/ 		// an array means "currently loading".
-/******/ 		if(installedChunks[chunkId] !== undefined) {
-/******/ 			installedChunks[chunkId].push(callback);
-/******/ 		} else {
-/******/ 			// start chunk loading
-/******/ 			installedChunks[chunkId] = [callback];
-/******/ 			var head = document.getElementsByTagName('head')[0];
-/******/ 			var script = document.createElement('script');
-/******/ 			script.type = 'text/javascript';
-/******/ 			script.charset = 'utf-8';
-/******/ 			script.async = true;
-
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({}[chunkId]||chunkId) + ".js";
-/******/ 			head.appendChild(script);
-/******/ 		}
-/******/ 	};
 
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
@@ -91,64 +40,26 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	var HomepageController = __webpack_require__(1);
+	var jQuery = __webpack_require__(2);
 
-	new HomepageController({$el: 'body'});
+	__webpack_require__(10);
+
+	module.exports = function() {
+	    jQuery('.imageGallery a').simpleLightbox();    
+	}();
+
+
+
 
 
 /***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
 
-	var $ = __webpack_require__(2);
-	var View = __webpack_require__(3);
-	var MainNav = __webpack_require__(6);
-	var MainSearch = __webpack_require__(7);
-
-	module.exports = View.extend({
-
-	    delegatedEvents: false,
-
-	    initialize: function() {
-	        this.setupBaseComponents();
-	    },
-
-	    events: {
-	        'click .mainHeader .signIn': function(e) {
-
-	            e.preventDefault();
-	            this.showLoginModal();
-	        }
-	    },
-
-	    setupBaseComponents: function() {
-
-	        this.mainNav = this.addView(new MainNav({$el: $('.mainNav')}));
-	        this.mainSearch =  this.addView(new MainSearch({$el: $('.mainSearch')}));
-	        return this;
-
-	    },
-
-	    showLoginModal: function(e) {
-
-	        __webpack_require__.e/* nsure */(1, function() {
-
-	            var LoginModal = __webpack_require__(9);
-	            new LoginModal();
-
-	        });
-
-	    }
-
-	});
-
-
-/***/ },
-/* 2 */
+/***/ 2:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -9996,516 +9907,8 @@
 
 
 /***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(root, factory) {
-
-	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(4), __webpack_require__(5), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	    } else if (typeof module === 'object' && module.exports) {
-	        module.exports = factory(require('type-factory'), require('mitty'), require('jquery'));
-	    } else {
-	        root.SimpleView = factory(root.typeFactory, root.mitty, root.jQuery);
-	    }
-
-	}(this, function(typeFactory, mitty, $) {
-
-	    var viewCounter = 0,
-	        variableInEventStringRE = /{{(\S+)}}/g,
-	        parseEventString = function(eventString, context) {
-
-	            return eventString.replace(variableInEventStringRE, function(match, namespace) {
-
-	                var isInCurrentContext = namespace.indexOf('this.') === 0,
-	                    current = isInCurrentContext ? context : window,
-	                    pieces = (isInCurrentContext ? namespace.slice(5) : namespace).split('.');
-
-	                for (var i in pieces) {
-	                    current = current[pieces[i]];
-	                    if (typeof current === 'undefined') {
-	                        throw new Error('Undefined variable in event string');
-	                    }
-	                }
-
-	                return current;
-
-	            });
-
-	        };
-
-	    var View = typeFactory({
-
-	        delegatedEvents: true,
-
-	        constructor: function(options) {
-
-	            this.cid = 'view' + (++viewCounter);
-
-	            if (options && options.$el) {
-	                this.$el = options.$el instanceof $ ? options.$el : $(options.$el).eq(0);
-	                delete options.$el;
-	            }
-
-	            this.beforeInitialize && this.beforeInitialize.apply(this, arguments);
-	            this.initialize && this.initialize.apply(this, arguments);
-
-	            this.events && this.$el && this.setupEvents();
-
-	        },
-
-	        setupEvents: function() {
-
-	            var eventNamespace = this.ens = this.ens || '.' + this.cid,
-	                self = this,
-	                specialSelectors = {
-	                    'document': window.document,
-	                    'window': window
-	                };
-
-	            $.each(typeof this.events === 'function' ? this.events() : this.events, function(eventString, handler) {
-
-	                eventString = parseEventString(eventString, self);
-
-	                var isOneEvent = eventString.indexOf('one:') === 0,
-	                    splitEventString = (isOneEvent ? eventString.slice(4) : eventString).split(' '),
-	                    eventName = splitEventString[0] + eventNamespace,
-	                    eventSelector = splitEventString.slice(1).join(' '),
-	                    $el = self.$el;
-
-	                if (specialSelectors[eventSelector]) {
-	                    $el = self['$' + eventSelector] = self['$' + eventSelector] || $(specialSelectors[eventSelector]);
-	                    eventSelector = undefined;
-	                } else if (!self.delegatedEvents) {
-	                    (self.elementsWithBoundEvents = self.elementsWithBoundEvents || []).push($el = $el.find(eventSelector));
-	                    eventSelector = undefined;
-	                }
-
-	                $el[isOneEvent ? 'one' : 'on'](eventName, eventSelector, function() {
-	                    (typeof handler === 'function' ? handler : self[handler]).apply(self, arguments);
-	                });
-
-	            });
-
-	            return this;
-
-	        },
-
-	        removeEvents: function() {
-
-	            var eventNamespace = this.ens;
-
-	            if (eventNamespace) {
-
-	                this.$el && this.$el.off(eventNamespace);
-	                this.$document && this.$document.off(eventNamespace);
-	                this.$window && this.$window.off(eventNamespace);
-
-	                if (this.elementsWithBoundEvents) {
-	                    $.each(this.elementsWithBoundEvents, function(i, el) {
-	                        $(el).off(eventNamespace);
-	                    });
-	                    this.elementsWithBoundEvents = null;
-	                }
-
-	            }
-
-	            return this;
-
-	        },
-
-	        remove: function() {
-
-	            this.trigger('beforeRemove');
-	            this.removeEvents().abortDeferreds().removeViews();
-	            this.$el && this.$el.remove();
-	            this.trigger('afterRemove');
-	            this.off().stopListening();
-
-	            return this;
-
-	        },
-
-	        addDeferred: function(deferred) {
-
-	            this.deferreds = this.deferreds || [];
-
-	            if (!Array.prototype.indexOf || this.deferreds.indexOf(deferred) < 0) {
-	                this.deferreds.push(deferred);
-	            }
-
-	            return deferred;
-
-	        },
-
-	        abortDeferreds: function() {
-
-	            this.deferreds && $.each(this.deferreds, function(i, deferred) {
-
-	                if (typeof deferred === 'object' && deferred.state && deferred.state() === 'pending') {
-	                    deferred.abort ? deferred.abort() : deferred.reject();
-	                }
-
-	            });
-
-	            delete this.deferreds;
-
-	            return this;
-
-	        },
-
-	        when: function(resources, callbackDone, callbackFail) {
-
-	            var self = this;
-
-	            $.each(resources = $.isArray(resources) ? resources : [resources], function(i, resource) {
-	                self.addDeferred(resource);
-	            });
-
-	            return $.when.apply(window, resources)
-	                .done($.proxy(callbackDone, this))
-	                .fail($.proxy(callbackFail, this));
-
-	        },
-
-	        addView: function(view) {
-
-	            this.views = this.views || {};
-	            this.views[view.cid] = view;
-
-	            this.listenTo(view, 'afterRemove', function() {
-	                delete this.views[view.cid];
-	            });
-
-	            return view;
-
-	        },
-
-	        removeViews: function() {
-
-	            this.views && $.each(this.views, function(id, view) {
-	                view.remove();
-	            });
-
-	            delete this.views;
-
-	            return this;
-
-	        },
-
-	        $: function(selector) {
-
-	            return this.$el.find(selector);
-
-	        }
-
-	    });
-
-	    mitty(View.prototype);
-
-	    return View;
-
-	}));
-
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(root, factory) {
-
-	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	    } else if (typeof module === 'object' && module.exports) {
-	        module.exports = factory();
-	    } else {
-	        root.typeFactory = factory();
-	    }
-
-	}(this, function() {
-
-	    function transferProperties(destination, source) {
-
-	        for (var key in source) {
-	            source.hasOwnProperty(key) && (destination[key] = source[key]);
-	        }
-
-	        return destination;
-
-	    }
-
-	    function factory(parentType, prototypeProperties, staticProperties) {
-
-	        var generatedType = prototypeProperties.hasOwnProperty('constructor') ? prototypeProperties.constructor : function() {
-
-	            if (parentType) {
-	                parentType.apply(this, arguments);
-	            } else {
-	                this.initialize && this.initialize.apply(this, arguments);
-	            }
-
-	        };
-
-	        if (parentType) {
-
-	            var Surrogate = function() { this.constructor = generatedType; };
-	            Surrogate.prototype = parentType.prototype;
-	            generatedType.prototype = new Surrogate();
-
-	            transferProperties(generatedType, parentType);
-	        }
-
-	        staticProperties && transferProperties(generatedType, staticProperties);
-	        prototypeProperties && transferProperties(generatedType.prototype, prototypeProperties);
-
-	        return generatedType;
-
-	    }
-
-	    return function(prototypeProperties, staticProperties) {
-
-	        var createdType = factory(null, prototypeProperties, staticProperties);
-
-	        createdType.extend = function(prototypeProperties, staticProperties) {
-
-	            return factory(this, prototypeProperties, staticProperties);
-
-	        };
-
-	        return createdType;
-
-	    };
-
-	}));
-
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(root, factory) {
-
-	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	    } else if (typeof module === 'object' && module.exports) {
-	        module.exports = factory();
-	    } else {
-	        root.mitty = factory();
-	    }
-
-	}(this, function() {
-
-	    var api = {
-
-	        on: function(eventName, callback) {
-	            registerEvent(this, this, eventName, callback);
-	            return this;
-	        },
-
-	        listenTo: function(publisher, eventName, callback) {
-	            registerEvent(publisher, this, eventName, callback);
-	            this._mittyListenTo = this._mittyListenTo || [];
-	            indexOf(this._mittyListenTo, publisher) < 0 && this._mittyListenTo.push(publisher);
-	            return this;
-	        },
-
-	        off: function(eventName, callback) {
-	            removeFromPublisher(this, null, eventName, callback);
-	            return this;
-	        },
-
-	        stopListening: function(publisher, eventName, callback) {
-	            removeFromListener(this, publisher, eventName, callback);
-	            return this;
-	        },
-
-	        trigger: function(eventName, data) {
-	            this._mittyOn && each(this._mittyOn, function(item) {
-	                if (item.eventName === eventName) {
-	                    item.callback.call(item.listener, data);
-	                }
-	            });
-	            return this;
-	        }
-	    };
-
-	    function each(collection, callback) {
-
-	        if (collection instanceof Array) {
-	            for (var i = 0; i < collection.length; i++) {
-	                callback(collection[i], i);
-	            }
-	        } else {
-	            for (var key in collection) {
-	                collection.hasOwnProperty(key) && callback(key, collection[key]);
-	            }
-	        }
-
-	    }
-
-	    function indexOf(collection, objectToSearch) {
-
-	        if (Array.prototype.indexOf) {
-	            return collection.indexOf(objectToSearch);
-	        } else {
-	            for (var i = 0; i < collection.length; i++) {
-	                if (collection[i] === objectToSearch) {
-	                    return i;
-	                }
-	            }
-	            return -1;
-	        }
-
-	    }
-
-	    function registerEvent(publisher, listener, eventName, callback) {
-
-	        publisher._mittyOn = publisher._mittyOn || [];
-
-	        publisher._mittyOn.push({
-	            listener: listener,
-	            eventName: eventName,
-	            callback: callback
-	        });
-
-	    }
-
-	    function removeFromPublisher(publisher, listener, eventName, callback) {
-
-	        if (publisher._mittyOn && publisher._mittyOn.length) {
-
-	            var criteria = {},
-	            temp = [];
-
-	            listener && (criteria.listener = listener);
-	            callback && (criteria.callback = callback);
-	            eventName && (criteria.eventName = eventName);
-
-	            each(publisher._mittyOn, function(item) {
-
-	                var shouldRemove = true;
-
-	                each(criteria, function(name, ref) {
-	                    if (item[name] !== ref) {
-	                        shouldRemove = false;
-	                    }
-	                });
-
-	                !shouldRemove && temp.push(item);
-
-	            });
-
-	            publisher._mittyOn = temp;
-
-	        }
-
-	    }
-
-	    function containsListener(publisher, listener) {
-
-	        if (publisher._mittyOn) {
-	            for (var i = 0; i < publisher._mittyOn.length; i++) {
-	                if (publisher._mittyOn[i].listener === listener) {
-	                    return true;
-	                }
-	            }
-	        }
-	        return false;
-
-	    }
-
-	    function removeFromListener(listener, publisher, eventName, callback) {
-
-	        var listening = listener._mittyListenTo && listener._mittyListenTo.length > 0;
-
-	        if (publisher && listening) {
-
-	            removeFromPublisher(publisher, listener, eventName, callback);
-
-	            if (!containsListener(publisher, listener)) {
-	                listener._mittyListenTo.splice(indexOf(listener._mittyListenTo, publisher), 1);
-	            }
-
-	        } else if (listening) {
-
-	            each(listener._mittyListenTo, function(item) {
-	                removeFromPublisher(item, listener);
-	            });
-	            listener._mittyListenTo = [];
-
-	        }
-
-	    }
-
-	    return function(objectToExtend) {
-
-	        each(api, function(methodName, method) {
-	            objectToExtend[methodName] = method;
-	        });
-
-	        return objectToExtend;
-
-	    };
-
-	}));
-
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var View = __webpack_require__(3);
-
-	module.exports = View.extend({
-
-	    events: {
-	        'click .toggleBtn': 'toggle'
-	    },
-
-	    toggle: function(e) {
-
-	        this.$el.hasClass('opened') ? this.hide() : this.show();
-
-	    },
-
-	    show: function() {
-
-	        this.$el.addClass('opened');
-
-	    },
-
-	    hide: function() {
-
-	        this.$el.removeClass('opened');
-
-	    }
-
-	});
-
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var View = __webpack_require__(3);
-
-	__webpack_require__(8);
-
-	module.exports = View.extend({
-
-	    initialize: function() {
-
-	        this.$('.query').fastsearch({
-	            onItemSelect: 'fillInput'
-	        });
-
-	    }
-
-	});
-
-
-/***/ },
-/* 8 */
+/***/ 10:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(factory) {
@@ -10520,529 +9923,384 @@
 
 	}(function($) {
 
-	    var $document = $(window.document),
-	        instanceNum = 0,
-	        keyMap = {
-	            13: 'enter',
-	            27: 'escape',
-	            40: 'downArrow',
-	            38: 'upArrow'
-	        };
+	    var instanceNum = 0,
+	        $html = $('html'),
+	        $document = $(document),
+	        $window = $(window);
 
-	    function Fastsearch(inputElement, options) {
+	    function SimpleLightbox(options) {
 
 	        this.init.apply(this, arguments);
 
 	    }
 
-	    $.extend(Fastsearch.prototype, {
+	    SimpleLightbox.defaults = {
 
-	        init: function(inputElement, options) {
+	        // add custom classes to lightbox elements
+	        elementClass: '',
+	        elementLoadingClass: 'slbLoading',
+	        htmlClass: 'slbActive',
+	        closeBtnClass: '',
+	        nextBtnClass: '',
+	        prevBtnClass: '',
+	        loadingTextClass: '',
 
-	            options = this.options = $.extend(true, {}, Fastsearch.defaults, options);
+	        // customize / localize controls captions
+	        closeBtnCaption: 'Close',
+	        nextBtnCaption: 'Next',
+	        prevBtnCaption: 'Previous',
+	        loadingCaption: 'Loading...',
 
-	            this.$input = $(inputElement);
-	            this.$el = options.wrapSelector instanceof $ ? options.wrapSelector : this.$input.closest(options.wrapSelector);
+	        bindToItems: true, // set click event handler to trigger lightbox on provided $items
+	        closeOnOverlayClick: true,
+	        closeOnEscapeKey: true,
+	        nextOnImageClick: true,
+	        showCaptions: true,
 
-	            Fastsearch.pickTo(options, this.$el.data(), [
-	                'url', 'onItemSelect', 'noResultsText', 'inputIdName', 'apiInputName'
-	            ]);
+	        captionAttribute: 'title', // choose data source for library to glean image caption from
+	        urlAttribute: 'href', // where to expect large image
 
-	            options.url = options.url || this.$el.attr('action');
+	        startAt: 0, // start gallery at custom index
+	        loadingTimeout: 100, // time after loading element will appear
 
-	            this.ens = '.fastsearch' + (++instanceNum);
-	            this.itemSelector = Fastsearch.selectorFromClass(options.itemClass);
-	            this.focusedItemSelector = Fastsearch.selectorFromClass(options.focusedItemClass);
+	        appendTarget: 'body', // append elsewhere if needed
 
-	            this.events();
+	        beforeSetContent: null, // convenient hooks for extending library behavoiur
+	        beforeClose: null,
+	        beforeDestroy: null,
+
+	        videoRegex: new RegExp(/youtube.com|vimeo.com/) // regex which tests load url for iframe content
+
+	    };
+
+	    $.extend(SimpleLightbox.prototype, {
+
+	        init: function(options) {
+
+	            this.options = $.extend({}, SimpleLightbox.defaults, options);
+	            this.ens = '.slb' + (++instanceNum);
+	            this.items = [];
+	            this.captions = [];
+
+	            var self = this;
+
+	            if (this.options.$items) {
+
+	                this.$items = this.options.$items;
+
+	                this.$items.each(function() {
+
+	                    var $item = $(this);
+
+	                    self.items.push($item.attr(self.options.urlAttribute));
+	                    self.captions.push($item.attr(self.options.captionAttribute));
+
+	                });
+
+	                this.options.bindToItems && this.$items.on('click' + this.ens, function(e) {
+
+	                    e.preventDefault();
+	                    self.showPosition(self.$items.index($(e.currentTarget)));
+
+	                });
+
+	            } else if (this.options.items) {
+
+	                this.items = this.options.items;
+
+	            }
+
+	            if (this.options.captions) {
+	                this.captions = this.options.captions;
+	            }
 
 	        },
 
-	        namespaceEvents: function(events) {
+	        next: function() {
 
-	            var eventNamespace = this.ens;
-
-	            return events.replace(/\w\b/g, function(match) {
-	                return match + eventNamespace;
-	            });
+	            return this.showPosition(this.currentPosition + 1);
 
 	        },
 
-	        events: function() {
+	        prev: function() {
 
-	            var self = this,
-	                options = this.options;
-
-	            this.$input.on(this.namespaceEvents('keyup focus click'), function(e) {
-
-	                keyMap[e.keyCode] !== 'enter' && self.handleTyping();
-
-	            }).on(this.namespaceEvents('keydown'), function(e) {
-
-	                keyMap[e.keyCode] === 'enter' && options.preventSubmit && e.preventDefault();
-
-	                if (self.hasResults && self.resultsOpened) {
-
-	                    switch (keyMap[e.keyCode]) {
-	                        case 'downArrow': e.preventDefault(); self.navigateItem('down'); break;
-	                        case 'upArrow': e.preventDefault(); self.navigateItem('up'); break;
-	                        case 'enter': self.onEnter(e); break;
-	                    }
-
-	                }
-
-	            });
-
-	            this.$el.on(this.namespaceEvents('click'), this.itemSelector, function(e) {
-
-	                e.preventDefault();
-	                self.handleItemSelect($(this));
-
-	            });
-
-	            options.mouseEvents && this.$el.on(this.namespaceEvents('mouseleave'), this.itemSelector, function(e) {
-
-	                $(this).removeClass(options.focusedItemClass);
-
-	            }).on(this.namespaceEvents('mouseenter'), this.itemSelector, function(e) {
-
-	                self.$resultItems.removeClass(options.focusedItemClass);
-	                $(this).addClass(options.focusedItemClass);
-
-	            });
+	            return this.showPosition(this.currentPosition - 1);
 
 	        },
 
-	        handleTyping: function() {
+	        normalizePosition: function(position) {
 
-	            var inputValue = $.trim(this.$input.val()),
-	                self = this;
+	            if (position >= this.items.length) {
+	                position = 0;
+	            } else if (position < 0) {
+	                position = this.items.length - 1;
+	            }
 
-	            if (inputValue.length < this.options.minQueryLength) {
+	            return position;
 
-	                this.hideResults();
+	        },
 
-	            } else if (inputValue === this.query) {
+	        showPosition: function(position) {
 
-	                this.showResults();
+	            var self = this;
+
+	            this.currentPosition = this.normalizePosition(position);
+
+	            return this.setupLightboxHtml().prepareItem(this.currentPosition, this.setContent).show();
+
+	        },
+
+	        loading: function(on) {
+
+	            var self = this;
+
+	            if (on) {
+
+	                this.loadingTimeout = setTimeout(function() {
+
+	                    self.$el.addClass(self.options.elementLoadingClass);
+
+	                    self.$content.html('<p class="slbLoadingText ' + self.options.loadingTextClass + '">' + self.options.loadingCaption + '</p>');
+	                    self.show();
+
+	                }, this.options.loadingTimeout);
 
 	            } else {
 
-	                clearTimeout(this.keyupTimeout);
-
-	                this.keyupTimeout = setTimeout(function() {
-
-	                    self.$el.addClass(self.options.loadingClass);
-
-	                    self.query = inputValue;
-
-	                    self.getResults(function(data) {
-
-	                        self.showResults(self.storeResponse(data).generateResults(data));
-
-	                    });
-
-	                }, this.options.typeTimeout);
+	                this.$el && this.$el.removeClass(this.options.elementLoadingClass);
+	                clearTimeout(this.loadingTimeout);
 
 	            }
 
 	        },
 
-	        getResults: function(callback) {
+	        prepareItem: function(position, callback) {
 
 	            var self = this,
-	                options = this.options,
-	                formValues = this.$el.find('input, textarea, select').serializeArray();
+	                url = this.items[position];
 
-	            if (options.apiInputName) {
-	                formValues.push({'name': options.apiInputName, 'value': this.$input.val()});
+	            this.loading(true);
+
+	            if (this.options.videoRegex.test(url)) {
+
+	                callback.call(self, $('<div class="slbIframeCont"><iframe class="slbIframe" frameborder="0" allowfullscreen src="' + url + '"></iframe></div>'));
+
+	            } else {
+
+	                var $imageCont = $('<div class="slbImageWrap"><img class="slbImage" src="' + url + '" /></div>');
+
+	                this.$currentImage = $imageCont.find('.slbImage');
+
+	                if (this.options.showCaptions && this.captions[position]) {
+	                    $imageCont.append('<div class="slbCaption">' + this.captions[position] + '</div>');
+	                }
+
+	                this.loadImage(url, function() {
+
+	                    self.setImageDimensions();
+
+	                    callback.call(self, $imageCont);
+
+	                    self.loadImage(self.items[self.normalizePosition(self.currentPosition + 1)]);
+
+	                });
+
 	            }
-
-	            $.get(options.url, formValues, function(data) {
-
-	                callback(options.parseResponse ? options.parseResponse.call(self, data, self) : data);
-
-	            });
-
-	        },
-
-	        storeResponse: function(data) {
-
-	            this.responseData = data;
-	            this.hasResults = data.length !== 0;
 
 	            return this;
 
 	        },
 
-	        generateResults: function(data) {
+	        loadImage: function(url, callback) {
 
-	            var $allResults = $('<div>'),
-	                options = this.options;
+	            if (!this.options.videoRegex.test(url)) {
 
-	            if (options.template) {
-	                return $(options.template(data, this));
+	                var image = new Image();
+	                callback && (image.onload = callback);
+	                image.src = url;
+
 	            }
 
-	            if (data.length === 0) {
+	        },
 
-	                $allResults.html(
-	                    '<p class="' + options.noResultsClass + '">' +
-	                        (typeof options.noResultsText === 'function' ? options.noResultsText.call(this) : options.noResultsText) +
-	                    '</p>'
+	        setupLightboxHtml: function() {
+
+	            var o = this.options;
+
+	            if (!this.$el) {
+
+	                this.$el = $(
+	                    '<div class="slbElement ' + o.elementClass + '">' +
+	                        '<div class="slbOverlay"></div>' +
+	                        '<div class="slbWrapOuter">' +
+	                            '<div class="slbWrap">' +
+	                                '<div class="slbContentOuter">' +
+	                                    '<div class="slbContent"></div>' +
+	                                    '<button type="button" title="' + o.closeBtnCaption + '" class="slbCloseBtn ' + o.closeBtnClass + '">×</button>' +
+	                                '</div>' +
+	                            '</div>' +
+	                        '</div>' +
+	                    '</div>'
 	                );
 
-	            } else {
+	                if (this.items.length > 1) {
 
-	                if (this.options.responseType === 'html') {
-
-	                    $allResults.html(data);
-
-	                } else {
-
-	                    this['generate' + (data[0][options.responseFormat.groupItems] ? 'GroupedResults' : 'SimpleResults')](data, $allResults);
+	                    $(
+	                        '<div class="slbArrows">' +
+	                            '<button type="button" title="' + o.prevBtnCaption + '" class="prev slbArrow' + o.prevBtnClass + '">' + o.prevBtnCaption + '</button>' +
+	                            '<button type="button" title="' + o.nextBtnCaption + '" class="next slbArrow' + o.nextBtnClass + '">' + o.nextBtnCaption + '</button>' +
+	                        '</div>'
+	                    ).appendTo(this.$el.find('.slbContentOuter'));
 
 	                }
 
+	                this.$content = this.$el.find('.slbContent');
+
 	            }
 
-	            return $allResults.children();
+	            this.$content.empty();
+
+	            return this;
 
 	        },
 
-	        generateSimpleResults: function(data, $cont) {
+	        show: function() {
+
+	            if (!this.modalInDom) {
+
+	                this.$el.appendTo($(this.options.appendTarget));
+	                $html.addClass(this.options.htmlClass);
+	                this.setupLightboxEvents();
+
+	                this.modalInDom = true;
+
+	            }
+
+	            return this;
+
+	        },
+
+	        setContent: function(content) {
+
+	            var $content = $(content);
+
+	            this.loading(false);
+
+	            this.setupLightboxHtml();
+	            this.options.beforeSetContent && this.options.beforeSetContent($content, this);
+	            this.$content.html($content);
+
+	            return this;
+
+	        },
+
+	        setImageDimensions: function() {
+
+	            this.$currentImage && this.$currentImage.css('max-height', $window.height() + 'px');
+
+	        },
+
+	        setupLightboxEvents: function() {
 
 	            var self = this;
 
-	            this.itemModels = data;
+	            if (!this.lightboxEventsSetuped) {
 
-	            $.each(data, function(i, item) {
-	                $cont.append(self.generateItem(item));
-	            });
+	                this.$el.on('click' + this.ens, function(e) {
 
-	        },
+	                    var $target = $(e.target);
 
-	        generateGroupedResults: function(data, $cont) {
+	                    if ($target.is('.slbCloseBtn') || (self.options.closeOnOverlayClick && $target.is('.slbWrap'))) {
 
-	            var self = this,
-	                options = this.options,
-	                format = options.responseFormat;
+	                        self.close();
 
-	            this.itemModels = [];
+	                    } else if ($target.is('.slbArrow')) {
 
-	            $.each(data, function(i, groupData) {
+	                        $target.hasClass('next') ? self.next() : self.prev();
 
-	                var $group = $('<div class="' + options.groupClass + '">').appendTo($cont);
+	                    } else if (self.options.nextOnImageClick && self.items.length > 1 && $target.is('.slbImage')) {
 
-	                groupData[format.groupCaption] && $group.append(
-	                    '<h3 class="' + options.groupTitleClass + '">' + groupData[format.groupCaption] + '</h3>'
-	                );
+	                        self.next();
 
-	                $.each(groupData.items, function(i, item) {
-
-	                    self.itemModels.push(item);
-	                    $group.append(self.generateItem(item));
+	                    }
 
 	                });
 
-	                options.onGroupCreate && options.onGroupCreate.call(self, $group, groupData, self);
+	                $document.on('keyup' + this.ens, function(e) {
 
-	            });
+	                    self.options.closeOnEscapeKey && e.keyCode === 27 && self.close();
 
-	        },
+	                    if (self.items.length > 1) {
+	                        (e.keyCode === 39 || e.keyCode === 68) && self.next();
+	                        (e.keyCode === 37 || e.keyCode === 65) && self.prev();
+	                    }
 
-	        generateItem: function(item) {
+	                });
 
-	            var options = this.options,
-	                format = options.responseFormat,
-	                url = item[format.url],
-	                html = item[format.html] || item[format.label],
-	                $tag = $('<' + (url ? 'a' : 'span') + '>').html(html).addClass(options.itemClass);
+	                $window.on('resize' + this.ens, function() {
 
-	            url && $tag.attr('href', url);
+	                    self.setImageDimensions();
 
-	            options.onItemCreate && options.onItemCreate.call(this, $tag, item, this);
+	                });
 
-	            return $tag;
-
-	        },
-
-	        showResults: function($content) {
-
-	            if (!$content && this.resultsOpened) {
-	                return;
-	            }
-
-	            this.$el.removeClass(this.options.loadingClass).addClass(this.options.resultsOpenedClass);
-
-	            this.$resultsCont = this.$resultsCont || $('<div>').addClass(this.options.resultsContClass).appendTo(this.$el);
-
-	            if ($content) {
-
-	                this.$resultsCont.html($content);
-	                this.$resultItems = this.$resultsCont.find(this.itemSelector);
-	                this.options.onResultsCreate && this.options.onResultsCreate.call(this, this.$resultsCont, this.responseData, this);
+	                this.lightboxEventsSetuped = true;
 
 	            }
 
-	            if (!this.resultsOpened) {
-
-	                this.documentCancelEvents('on');
-	                this.$input.trigger('openingResults');
-
-	            }
-
-	            this.resultsOpened = true;
-
 	        },
 
-	        documentCancelEvents: function(setup, onCancel) {
+	        close: function() {
 
-	            var self = this;
+	            if (this.modalInDom) {
 
-	            if (setup === 'off' && this.closeEventsSetuped) {
+	                this.options.beforeClose && this.options.beforeClose(this);
 
+	                this.$el && this.$el.off(this.ens);
 	                $document.off(this.ens);
-	                this.closeEventsSetuped = false;
-	                return;
+	                $window.off(this.ens);
+	                this.lightboxEventsSetuped = false;
 
-	            } else if (setup === 'on' && !this.closeEventsSetuped) {
-
-	                $document.on(this.namespaceEvents('click keyup'), function(e) {
-
-	                    if (keyMap[e.keyCode] === 'escape' || (!$(e.target).is(self.$el) && !$.contains(self.$el.get(0), e.target) && $.contains(document.documentElement, e.target))) {
-
-	                        onCancel ? onCancel.call(self) : self.hideResults();
-
-	                    }
-
-	                });
-
-	                this.closeEventsSetuped = true;
-
+	                this.$el.detach();
+	                $html.removeClass(this.options.htmlClass);
+	                this.modalInDom = false;
 	            }
-
-	        },
-
-	        navigateItem: function(direction) {
-
-	            var $currentItem = this.$resultItems.filter(this.focusedItemSelector),
-	                maxPosition = this.$resultItems.length - 1;
-
-	            if ($currentItem.length === 0) {
-
-	                this.$resultItems.eq(direction === 'up' ? maxPosition : 0).addClass(this.options.focusedItemClass);
-	                return;
-
-	            }
-
-	            var currentPosition = this.$resultItems.index($currentItem),
-	                nextPosition = direction === 'up' ? currentPosition - 1 : currentPosition + 1;
-
-	            nextPosition > maxPosition && (nextPosition = 0);
-	            nextPosition < 0 && (nextPosition = maxPosition);
-
-	            $currentItem.removeClass(this.options.focusedItemClass);
-
-	            this.$resultItems.eq(nextPosition).addClass(this.options.focusedItemClass);
-
-	        },
-
-	        navigateDown: function() {
-
-	            this.navigateItem('down');
-
-	        },
-
-	        navigateUp: function() {
-
-	            this.navigateItem('up');
-
-	        },
-
-	        onEnter: function(e) {
-
-	            var $currentItem = this.$resultItems.filter(this.focusedItemSelector);
-
-	            if ($currentItem.length) {
-	                e.preventDefault();
-	                this.handleItemSelect($currentItem);
-	            }
-
-	        },
-
-	        handleItemSelect: function($item) {
-
-	            var selectOption = this.options.onItemSelect,
-	                model = this.itemModels.length ? this.itemModels[this.$resultItems.index($item)] : {};
-
-	            this.$input.trigger('itemSelected');
-
-	            if (selectOption === 'fillInput') {
-
-	                this.fillInput(model);
-
-	            } else if (selectOption === 'follow') {
-
-	                window.location.href = $item.attr('href');
-
-	            } else if (typeof selectOption === 'function') {
-
-	                selectOption.call(this, $item, model, this);
-
-	            }
-
-	        },
-
-	        fillInput: function(model) {
-
-	            var options = this.options,
-	                format = options.responseFormat;
-
-	            this.query = model[format.label];
-	            this.$input.val(model[format.label]).trigger('change');
-
-	            if (options.fillInputId && model.id) {
-
-	                if (!this.$inputId) {
-
-	                    var inputIdName = options.inputIdName || this.$input.attr('name') + '_id';
-
-	                    this.$inputId = this.$el.find('input[name="' + inputIdName + '"]');
-
-	                    if (!this.$inputId.length) {
-	                        this.$inputId = $('<input type="hidden" name="' + inputIdName + '" />').appendTo(this.$el);
-	                    }
-
-	                }
-
-	                this.$inputId.val(model.id).trigger('change');
-
-	            }
-
-	            this.hideResults();
-
-	        },
-
-	        hideResults: function() {
-
-	            if (this.resultsOpened) {
-
-	                this.resultsOpened = false;
-	                this.$el.removeClass(this.options.resultsOpenedClass);
-	                this.$input.trigger('closingResults');
-	                this.documentCancelEvents('off');
-
-	            }
-
-	            return this;
-
-	        },
-
-	        clear: function() {
-
-	            this.hideResults();
-	            this.$input.val('').trigger('change');
-
-	            return this;
 
 	        },
 
 	        destroy: function() {
 
-	            $document.off(this.ens);
-
-	            this.$input.off(this.ens);
-
-	            this.$el.off(this.ens)
-	                .removeClass(this.options.resultsOpenedClass)
-	                .removeClass(this.options.loadingClass);
-
-	            if (this.$resultsCont) {
-
-	                this.$resultsCont.remove();
-	                delete this.$resultsCont;
-
-	            }
-
-	            delete this.$el.data().fastsearch;
+	            this.close();
+	            this.options.beforeDestroy && this.options.beforeDestroy(this);
+	            this.$items && this.$items.off(this.ens);
+	            this.$el && this.$el.remove();
 
 	        }
 
 	    });
 
-	    $.extend(Fastsearch, {
+	    SimpleLightbox.open = function(options) {
 
-	        pickTo: function(dest, src, keys) {
+	        var instance = new SimpleLightbox(options);
 
-	            $.each(keys, function(i, key) {
-	                dest[key] = (src && src[key]) || dest[key];
-	            });
+	        return options.content ? instance.setContent(options.content).show() : instance.showPosition(instance.options.startAt);
 
-	            return dest;
-
-	        },
-
-	        selectorFromClass: function(classes) {
-
-	            return '.' + classes.replace(/\s/g, '.');
-
-	        }
-
-	    });
-
-	    Fastsearch.defaults = {
-	        wrapSelector: 'form', // fastsearch container defaults to closest form. Provide selector for something other
-	        url: null, // plugin will get data from data-url propery, url option or container action attribute
-	        responseType: 'JSON', // default expected server response type - can be set to html if that is what server returns
-	        preventSubmit: false, // prevent submit of form with enter keypress
-
-	        resultsContClass: 'fs_results', // html classes
-	        resultsOpenedClass: 'fsr_opened',
-	        groupClass: 'fs_group',
-	        itemClass: 'fs_result_item',
-	        groupTitleClass: 'fs_group_title',
-	        loadingClass: 'loading',
-	        noResultsClass: 'fs_no_results',
-	        focusedItemClass: 'focused',
-
-	        typeTimeout: 140, // try not to hammer server with request for each keystroke if possible
-	        minQueryLength: 2, // minimal number of characters needed for plugin to send request to server
-
-	        template: null, // provide your template function if you need one - function(data, fastsearchApi)
-	        mouseEvents: !('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0), // detect if client is touch enabled so plugin can decide if mouse specific events should be set.
-
-	        responseFormat: { // Adjust where plugin looks for data in your JSON server response
-	            url: 'url',
-	            html: 'html',
-	            label: 'label',
-	            groupCaption: 'caption',
-	            groupItems: 'items'
-	        },
-
-	        fillInputId: true, // on item select plugin will try to write selected id from item data model to input
-	        inputIdName: null, // on item select plugin will try to write selected id from item data model to input with this name
-
-	        apiInputName: null, // by default plugin will post input name as query parameter - you can provide custom one here
-
-	        noResultsText: 'No results found',
-	        onItemSelect: 'follow', // by default plugin follows selected link - other options available are "fillInput" and custom callback - function($item, model, fastsearchApi)
-
-	        parseResponse: null, // parse server response with your handler and return processed data - function(response, fastsearchApi)
-	        onResultsCreate: null, // adjust results element - function($allResults, data, fastsearchApi)
-	        onGroupCreate: null, // adjust group element when created - function($group, groupModel, fastsearchApi)
-	        onItemCreate: null // adjust item element when created - function($item, model, fastsearchApi)
 	    };
 
-	    $.fastsearch = Fastsearch;
+	    $.fn.simpleLightbox = function(options) {
 
-	    $.fn.fastsearch = function(options) {
+	        var lightboxInstance,
+	            $items = this;
+
 	        return this.each(function() {
-	            if (!$.data(this, 'fastsearch')) {
-	                $.data(this, 'fastsearch', new Fastsearch(this, options));
+	            if (!$.data(this, 'simpleLightbox')) {
+	                lightboxInstance = lightboxInstance || new SimpleLightbox($.extend({}, options, {$items: $items}));
+	                $.data(this, 'simpleLightbox', lightboxInstance);
 	            }
 	        });
+
 	    };
+
+	    $.simpleLightbox = $.SimpleLightbox = SimpleLightbox;
 
 	    return $;
 
@@ -11050,4 +10308,5 @@
 
 
 /***/ }
-/******/ ]);
+
+/******/ });
