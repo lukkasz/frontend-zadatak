@@ -1,28 +1,4 @@
-webpackJsonp([1,2],{
-
-/***/ 9:
-/***/ function(module, exports, __webpack_require__) {
-
-	var $ = __webpack_require__(2);
-	var View = __webpack_require__(3);
-
-	__webpack_require__(10);
-
-	module.exports = View.extend({
-
-	    initialize: function(options) {
-
-	        $.simpleLightbox.open({
-	            content: $('.loginModal').clone(),
-	            elementClass: 'slbContentEl'
-	        });
-
-	    }
-
-	});
-
-
-/***/ },
+webpackJsonp([2],{
 
 /***/ 10:
 /***/ function(module, exports, __webpack_require__) {

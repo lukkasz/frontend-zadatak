@@ -28,7 +28,7 @@ instanciranja lightbox-a.
 Ažurirajte kod tako da se sadržaj forme dohvaća sa url-a (u public direktoriju nalazi se pripremljeni login-modal.html kojeg možete dohvatiti kada treba)
 
 + Front-end resurse koji nisu neophodni za inicijalno prikazivanje probajte učitati tek kad su korisniku potrebni.
-	+ Ažurirajte kod pretrage tako da se plugin za brzu pretragu učitava nakon što korisnik počne upisivati nešto u pretragu
+	+ Ažurirajte kod pretrage tako da se plugin za brzu pretragu učitava nakon što korisnik počne upisivati nešto u pretragu+
 	+ Slično probajte napraviti za galeriju fotografija tako da se lightbox plugin učita nakon što korisnik klikne na neki od thumbnailova
 	+ Dodatan plus dobijete ako i CSS resurse za gornje primjere učitavate samo kad je potrebno
 

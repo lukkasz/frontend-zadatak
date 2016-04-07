@@ -51,7 +51,7 @@
 
 	module.exports = function() {
 	    jQuery('.imageGallery a').simpleLightbox();    
-	}();
+	};
 
 
 

@@ -2,8 +2,7 @@ var path = require('path');
 
 module.exports = {
     entry: {
-        homepage: './src/js/bundles/homepage.js',
-        simpleLightbox: './src/js/bundles/simpleLightbox.js'
+        homepage: './src/js/bundles/homepage.js'
     },
     output: {
         path: 'public/js/bundles',
