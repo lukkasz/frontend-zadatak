@@ -1,30 +1,6 @@
-webpackJsonp([1,2],{
+webpackJsonp([1],{
 
-/***/ 9:
-/***/ function(module, exports, __webpack_require__) {
-
-	var $ = __webpack_require__(2);
-	var View = __webpack_require__(3);
-
-	__webpack_require__(10);
-
-	module.exports = View.extend({
-
-	    initialize: function(options) {
-
-	        $.simpleLightbox.open({
-	            content: $('.loginModal').clone(),
-	            elementClass: 'slbContentEl'
-	        });
-
-	    }
-
-	});
-
-
-/***/ },
-
-/***/ 10:
+/***/ 8:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(factory) {
@@ -39,384 +15,529 @@ webpackJsonp([1,2],{
 
 	}(function($) {
 
-	    var instanceNum = 0,
-	        $html = $('html'),
-	        $document = $(document),
-	        $window = $(window);
+	    var $document = $(window.document),
+	        instanceNum = 0,
+	        keyMap = {
+	            13: 'enter',
+	            27: 'escape',
+	            40: 'downArrow',
+	            38: 'upArrow'
+	        };
 
-	    function SimpleLightbox(options) {
+	    function Fastsearch(inputElement, options) {
 
 	        this.init.apply(this, arguments);
 
 	    }
 
-	    SimpleLightbox.defaults = {
+	    $.extend(Fastsearch.prototype, {
 
-	        // add custom classes to lightbox elements
-	        elementClass: '',
-	        elementLoadingClass: 'slbLoading',
-	        htmlClass: 'slbActive',
-	        closeBtnClass: '',
-	        nextBtnClass: '',
-	        prevBtnClass: '',
-	        loadingTextClass: '',
+	        init: function(inputElement, options) {
 
-	        // customize / localize controls captions
-	        closeBtnCaption: 'Close',
-	        nextBtnCaption: 'Next',
-	        prevBtnCaption: 'Previous',
-	        loadingCaption: 'Loading...',
+	            options = this.options = $.extend(true, {}, Fastsearch.defaults, options);
 
-	        bindToItems: true, // set click event handler to trigger lightbox on provided $items
-	        closeOnOverlayClick: true,
-	        closeOnEscapeKey: true,
-	        nextOnImageClick: true,
-	        showCaptions: true,
+	            this.$input = $(inputElement);
+	            this.$el = options.wrapSelector instanceof $ ? options.wrapSelector : this.$input.closest(options.wrapSelector);
 
-	        captionAttribute: 'title', // choose data source for library to glean image caption from
-	        urlAttribute: 'href', // where to expect large image
+	            Fastsearch.pickTo(options, this.$el.data(), [
+	                'url', 'onItemSelect', 'noResultsText', 'inputIdName', 'apiInputName'
+	            ]);
 
-	        startAt: 0, // start gallery at custom index
-	        loadingTimeout: 100, // time after loading element will appear
+	            options.url = options.url || this.$el.attr('action');
 
-	        appendTarget: 'body', // append elsewhere if needed
+	            this.ens = '.fastsearch' + (++instanceNum);
+	            this.itemSelector = Fastsearch.selectorFromClass(options.itemClass);
+	            this.focusedItemSelector = Fastsearch.selectorFromClass(options.focusedItemClass);
 
-	        beforeSetContent: null, // convenient hooks for extending library behavoiur
-	        beforeClose: null,
-	        beforeDestroy: null,
-
-	        videoRegex: new RegExp(/youtube.com|vimeo.com/) // regex which tests load url for iframe content
-
-	    };
-
-	    $.extend(SimpleLightbox.prototype, {
-
-	        init: function(options) {
-
-	            this.options = $.extend({}, SimpleLightbox.defaults, options);
-	            this.ens = '.slb' + (++instanceNum);
-	            this.items = [];
-	            this.captions = [];
-
-	            var self = this;
-
-	            if (this.options.$items) {
-
-	                this.$items = this.options.$items;
-
-	                this.$items.each(function() {
-
-	                    var $item = $(this);
-
-	                    self.items.push($item.attr(self.options.urlAttribute));
-	                    self.captions.push($item.attr(self.options.captionAttribute));
-
-	                });
-
-	                this.options.bindToItems && this.$items.on('click' + this.ens, function(e) {
-
-	                    e.preventDefault();
-	                    self.showPosition(self.$items.index($(e.currentTarget)));
-
-	                });
-
-	            } else if (this.options.items) {
-
-	                this.items = this.options.items;
-
-	            }
-
-	            if (this.options.captions) {
-	                this.captions = this.options.captions;
-	            }
+	            this.events();
 
 	        },
 
-	        next: function() {
+	        namespaceEvents: function(events) {
 
-	            return this.showPosition(this.currentPosition + 1);
+	            var eventNamespace = this.ens;
 
-	        },
-
-	        prev: function() {
-
-	            return this.showPosition(this.currentPosition - 1);
+	            return events.replace(/\w\b/g, function(match) {
+	                return match + eventNamespace;
+	            });
 
 	        },
 
-	        normalizePosition: function(position) {
-
-	            if (position >= this.items.length) {
-	                position = 0;
-	            } else if (position < 0) {
-	                position = this.items.length - 1;
-	            }
-
-	            return position;
-
-	        },
-
-	        showPosition: function(position) {
-
-	            var self = this;
-
-	            this.currentPosition = this.normalizePosition(position);
-
-	            return this.setupLightboxHtml().prepareItem(this.currentPosition, this.setContent).show();
-
-	        },
-
-	        loading: function(on) {
-
-	            var self = this;
-
-	            if (on) {
-
-	                this.loadingTimeout = setTimeout(function() {
-
-	                    self.$el.addClass(self.options.elementLoadingClass);
-
-	                    self.$content.html('<p class="slbLoadingText ' + self.options.loadingTextClass + '">' + self.options.loadingCaption + '</p>');
-	                    self.show();
-
-	                }, this.options.loadingTimeout);
-
-	            } else {
-
-	                this.$el && this.$el.removeClass(this.options.elementLoadingClass);
-	                clearTimeout(this.loadingTimeout);
-
-	            }
-
-	        },
-
-	        prepareItem: function(position, callback) {
+	        events: function() {
 
 	            var self = this,
-	                url = this.items[position];
+	                options = this.options;
 
-	            this.loading(true);
+	            this.$input.on(this.namespaceEvents('keyup focus click'), function(e) {
 
-	            if (this.options.videoRegex.test(url)) {
+	                keyMap[e.keyCode] !== 'enter' && self.handleTyping();
 
-	                callback.call(self, $('<div class="slbIframeCont"><iframe class="slbIframe" frameborder="0" allowfullscreen src="' + url + '"></iframe></div>'));
+	            }).on(this.namespaceEvents('keydown'), function(e) {
+
+	                keyMap[e.keyCode] === 'enter' && options.preventSubmit && e.preventDefault();
+
+	                if (self.hasResults && self.resultsOpened) {
+
+	                    switch (keyMap[e.keyCode]) {
+	                        case 'downArrow': e.preventDefault(); self.navigateItem('down'); break;
+	                        case 'upArrow': e.preventDefault(); self.navigateItem('up'); break;
+	                        case 'enter': self.onEnter(e); break;
+	                    }
+
+	                }
+
+	            });
+
+	            this.$el.on(this.namespaceEvents('click'), this.itemSelector, function(e) {
+
+	                e.preventDefault();
+	                self.handleItemSelect($(this));
+
+	            });
+
+	            options.mouseEvents && this.$el.on(this.namespaceEvents('mouseleave'), this.itemSelector, function(e) {
+
+	                $(this).removeClass(options.focusedItemClass);
+
+	            }).on(this.namespaceEvents('mouseenter'), this.itemSelector, function(e) {
+
+	                self.$resultItems.removeClass(options.focusedItemClass);
+	                $(this).addClass(options.focusedItemClass);
+
+	            });
+
+	        },
+
+	        handleTyping: function() {
+
+	            var inputValue = $.trim(this.$input.val()),
+	                self = this;
+
+	            if (inputValue.length < this.options.minQueryLength) {
+
+	                this.hideResults();
+
+	            } else if (inputValue === this.query) {
+
+	                this.showResults();
 
 	            } else {
 
-	                var $imageCont = $('<div class="slbImageWrap"><img class="slbImage" src="' + url + '" /></div>');
+	                clearTimeout(this.keyupTimeout);
 
-	                this.$currentImage = $imageCont.find('.slbImage');
+	                this.keyupTimeout = setTimeout(function() {
 
-	                if (this.options.showCaptions && this.captions[position]) {
-	                    $imageCont.append('<div class="slbCaption">' + this.captions[position] + '</div>');
-	                }
+	                    self.$el.addClass(self.options.loadingClass);
 
-	                this.loadImage(url, function() {
+	                    self.query = inputValue;
 
-	                    self.setImageDimensions();
+	                    self.getResults(function(data) {
 
-	                    callback.call(self, $imageCont);
+	                        self.showResults(self.storeResponse(data).generateResults(data));
 
-	                    self.loadImage(self.items[self.normalizePosition(self.currentPosition + 1)]);
+	                    });
 
-	                });
+	                }, this.options.typeTimeout);
 
 	            }
+
+	        },
+
+	        getResults: function(callback) {
+
+	            var self = this,
+	                options = this.options,
+	                formValues = this.$el.find('input, textarea, select').serializeArray();
+
+	            if (options.apiInputName) {
+	                formValues.push({'name': options.apiInputName, 'value': this.$input.val()});
+	            }
+
+	            $.get(options.url, formValues, function(data) {
+
+	                callback(options.parseResponse ? options.parseResponse.call(self, data, self) : data);
+
+	            });
+
+	        },
+
+	        storeResponse: function(data) {
+
+	            this.responseData = data;
+	            this.hasResults = data.length !== 0;
 
 	            return this;
 
 	        },
 
-	        loadImage: function(url, callback) {
+	        generateResults: function(data) {
 
-	            if (!this.options.videoRegex.test(url)) {
+	            var $allResults = $('<div>'),
+	                options = this.options;
 
-	                var image = new Image();
-	                callback && (image.onload = callback);
-	                image.src = url;
-
+	            if (options.template) {
+	                return $(options.template(data, this));
 	            }
 
-	        },
+	            if (data.length === 0) {
 
-	        setupLightboxHtml: function() {
-
-	            var o = this.options;
-
-	            if (!this.$el) {
-
-	                this.$el = $(
-	                    '<div class="slbElement ' + o.elementClass + '">' +
-	                        '<div class="slbOverlay"></div>' +
-	                        '<div class="slbWrapOuter">' +
-	                            '<div class="slbWrap">' +
-	                                '<div class="slbContentOuter">' +
-	                                    '<div class="slbContent"></div>' +
-	                                    '<button type="button" title="' + o.closeBtnCaption + '" class="slbCloseBtn ' + o.closeBtnClass + '">×</button>' +
-	                                '</div>' +
-	                            '</div>' +
-	                        '</div>' +
-	                    '</div>'
+	                $allResults.html(
+	                    '<p class="' + options.noResultsClass + '">' +
+	                        (typeof options.noResultsText === 'function' ? options.noResultsText.call(this) : options.noResultsText) +
+	                    '</p>'
 	                );
 
-	                if (this.items.length > 1) {
+	            } else {
 
-	                    $(
-	                        '<div class="slbArrows">' +
-	                            '<button type="button" title="' + o.prevBtnCaption + '" class="prev slbArrow' + o.prevBtnClass + '">' + o.prevBtnCaption + '</button>' +
-	                            '<button type="button" title="' + o.nextBtnCaption + '" class="next slbArrow' + o.nextBtnClass + '">' + o.nextBtnCaption + '</button>' +
-	                        '</div>'
-	                    ).appendTo(this.$el.find('.slbContentOuter'));
+	                if (this.options.responseType === 'html') {
+
+	                    $allResults.html(data);
+
+	                } else {
+
+	                    this['generate' + (data[0][options.responseFormat.groupItems] ? 'GroupedResults' : 'SimpleResults')](data, $allResults);
 
 	                }
 
-	                this.$content = this.$el.find('.slbContent');
-
 	            }
 
-	            this.$content.empty();
-
-	            return this;
+	            return $allResults.children();
 
 	        },
 
-	        show: function() {
-
-	            if (!this.modalInDom) {
-
-	                this.$el.appendTo($(this.options.appendTarget));
-	                $html.addClass(this.options.htmlClass);
-	                this.setupLightboxEvents();
-
-	                this.modalInDom = true;
-
-	            }
-
-	            return this;
-
-	        },
-
-	        setContent: function(content) {
-
-	            var $content = $(content);
-
-	            this.loading(false);
-
-	            this.setupLightboxHtml();
-	            this.options.beforeSetContent && this.options.beforeSetContent($content, this);
-	            this.$content.html($content);
-
-	            return this;
-
-	        },
-
-	        setImageDimensions: function() {
-
-	            this.$currentImage && this.$currentImage.css('max-height', $window.height() + 'px');
-
-	        },
-
-	        setupLightboxEvents: function() {
+	        generateSimpleResults: function(data, $cont) {
 
 	            var self = this;
 
-	            if (!this.lightboxEventsSetuped) {
+	            this.itemModels = data;
 
-	                this.$el.on('click' + this.ens, function(e) {
+	            $.each(data, function(i, item) {
+	                $cont.append(self.generateItem(item));
+	            });
 
-	                    var $target = $(e.target);
+	        },
 
-	                    if ($target.is('.slbCloseBtn') || (self.options.closeOnOverlayClick && $target.is('.slbWrap'))) {
+	        generateGroupedResults: function(data, $cont) {
 
-	                        self.close();
+	            var self = this,
+	                options = this.options,
+	                format = options.responseFormat;
 
-	                    } else if ($target.is('.slbArrow')) {
+	            this.itemModels = [];
 
-	                        $target.hasClass('next') ? self.next() : self.prev();
+	            $.each(data, function(i, groupData) {
 
-	                    } else if (self.options.nextOnImageClick && self.items.length > 1 && $target.is('.slbImage')) {
+	                var $group = $('<div class="' + options.groupClass + '">').appendTo($cont);
 
-	                        self.next();
+	                groupData[format.groupCaption] && $group.append(
+	                    '<h3 class="' + options.groupTitleClass + '">' + groupData[format.groupCaption] + '</h3>'
+	                );
+
+	                $.each(groupData.items, function(i, item) {
+
+	                    self.itemModels.push(item);
+	                    $group.append(self.generateItem(item));
+
+	                });
+
+	                options.onGroupCreate && options.onGroupCreate.call(self, $group, groupData, self);
+
+	            });
+
+	        },
+
+	        generateItem: function(item) {
+
+	            var options = this.options,
+	                format = options.responseFormat,
+	                url = item[format.url],
+	                html = item[format.html] || item[format.label],
+	                $tag = $('<' + (url ? 'a' : 'span') + '>').html(html).addClass(options.itemClass);
+
+	            url && $tag.attr('href', url);
+
+	            options.onItemCreate && options.onItemCreate.call(this, $tag, item, this);
+
+	            return $tag;
+
+	        },
+
+	        showResults: function($content) {
+
+	            if (!$content && this.resultsOpened) {
+	                return;
+	            }
+
+	            this.$el.removeClass(this.options.loadingClass).addClass(this.options.resultsOpenedClass);
+
+	            this.$resultsCont = this.$resultsCont || $('<div>').addClass(this.options.resultsContClass).appendTo(this.$el);
+
+	            if ($content) {
+
+	                this.$resultsCont.html($content);
+	                this.$resultItems = this.$resultsCont.find(this.itemSelector);
+	                this.options.onResultsCreate && this.options.onResultsCreate.call(this, this.$resultsCont, this.responseData, this);
+
+	            }
+
+	            if (!this.resultsOpened) {
+
+	                this.documentCancelEvents('on');
+	                this.$input.trigger('openingResults');
+
+	            }
+
+	            this.resultsOpened = true;
+
+	        },
+
+	        documentCancelEvents: function(setup, onCancel) {
+
+	            var self = this;
+
+	            if (setup === 'off' && this.closeEventsSetuped) {
+
+	                $document.off(this.ens);
+	                this.closeEventsSetuped = false;
+	                return;
+
+	            } else if (setup === 'on' && !this.closeEventsSetuped) {
+
+	                $document.on(this.namespaceEvents('click keyup'), function(e) {
+
+	                    if (keyMap[e.keyCode] === 'escape' || (!$(e.target).is(self.$el) && !$.contains(self.$el.get(0), e.target) && $.contains(document.documentElement, e.target))) {
+
+	                        onCancel ? onCancel.call(self) : self.hideResults();
 
 	                    }
 
 	                });
 
-	                $document.on('keyup' + this.ens, function(e) {
-
-	                    self.options.closeOnEscapeKey && e.keyCode === 27 && self.close();
-
-	                    if (self.items.length > 1) {
-	                        (e.keyCode === 39 || e.keyCode === 68) && self.next();
-	                        (e.keyCode === 37 || e.keyCode === 65) && self.prev();
-	                    }
-
-	                });
-
-	                $window.on('resize' + this.ens, function() {
-
-	                    self.setImageDimensions();
-
-	                });
-
-	                this.lightboxEventsSetuped = true;
+	                this.closeEventsSetuped = true;
 
 	            }
 
 	        },
 
-	        close: function() {
+	        navigateItem: function(direction) {
 
-	            if (this.modalInDom) {
+	            var $currentItem = this.$resultItems.filter(this.focusedItemSelector),
+	                maxPosition = this.$resultItems.length - 1;
 
-	                this.options.beforeClose && this.options.beforeClose(this);
+	            if ($currentItem.length === 0) {
 
-	                this.$el && this.$el.off(this.ens);
-	                $document.off(this.ens);
-	                $window.off(this.ens);
-	                this.lightboxEventsSetuped = false;
+	                this.$resultItems.eq(direction === 'up' ? maxPosition : 0).addClass(this.options.focusedItemClass);
+	                return;
 
-	                this.$el.detach();
-	                $html.removeClass(this.options.htmlClass);
-	                this.modalInDom = false;
 	            }
+
+	            var currentPosition = this.$resultItems.index($currentItem),
+	                nextPosition = direction === 'up' ? currentPosition - 1 : currentPosition + 1;
+
+	            nextPosition > maxPosition && (nextPosition = 0);
+	            nextPosition < 0 && (nextPosition = maxPosition);
+
+	            $currentItem.removeClass(this.options.focusedItemClass);
+
+	            this.$resultItems.eq(nextPosition).addClass(this.options.focusedItemClass);
+
+	        },
+
+	        navigateDown: function() {
+
+	            this.navigateItem('down');
+
+	        },
+
+	        navigateUp: function() {
+
+	            this.navigateItem('up');
+
+	        },
+
+	        onEnter: function(e) {
+
+	            var $currentItem = this.$resultItems.filter(this.focusedItemSelector);
+
+	            if ($currentItem.length) {
+	                e.preventDefault();
+	                this.handleItemSelect($currentItem);
+	            }
+
+	        },
+
+	        handleItemSelect: function($item) {
+
+	            var selectOption = this.options.onItemSelect,
+	                model = this.itemModels.length ? this.itemModels[this.$resultItems.index($item)] : {};
+
+	            this.$input.trigger('itemSelected');
+
+	            if (selectOption === 'fillInput') {
+
+	                this.fillInput(model);
+
+	            } else if (selectOption === 'follow') {
+
+	                window.location.href = $item.attr('href');
+
+	            } else if (typeof selectOption === 'function') {
+
+	                selectOption.call(this, $item, model, this);
+
+	            }
+
+	        },
+
+	        fillInput: function(model) {
+
+	            var options = this.options,
+	                format = options.responseFormat;
+
+	            this.query = model[format.label];
+	            this.$input.val(model[format.label]).trigger('change');
+
+	            if (options.fillInputId && model.id) {
+
+	                if (!this.$inputId) {
+
+	                    var inputIdName = options.inputIdName || this.$input.attr('name') + '_id';
+
+	                    this.$inputId = this.$el.find('input[name="' + inputIdName + '"]');
+
+	                    if (!this.$inputId.length) {
+	                        this.$inputId = $('<input type="hidden" name="' + inputIdName + '" />').appendTo(this.$el);
+	                    }
+
+	                }
+
+	                this.$inputId.val(model.id).trigger('change');
+
+	            }
+
+	            this.hideResults();
+
+	        },
+
+	        hideResults: function() {
+
+	            if (this.resultsOpened) {
+
+	                this.resultsOpened = false;
+	                this.$el.removeClass(this.options.resultsOpenedClass);
+	                this.$input.trigger('closingResults');
+	                this.documentCancelEvents('off');
+
+	            }
+
+	            return this;
+
+	        },
+
+	        clear: function() {
+
+	            this.hideResults();
+	            this.$input.val('').trigger('change');
+
+	            return this;
 
 	        },
 
 	        destroy: function() {
 
-	            this.close();
-	            this.options.beforeDestroy && this.options.beforeDestroy(this);
-	            this.$items && this.$items.off(this.ens);
-	            this.$el && this.$el.remove();
+	            $document.off(this.ens);
+
+	            this.$input.off(this.ens);
+
+	            this.$el.off(this.ens)
+	                .removeClass(this.options.resultsOpenedClass)
+	                .removeClass(this.options.loadingClass);
+
+	            if (this.$resultsCont) {
+
+	                this.$resultsCont.remove();
+	                delete this.$resultsCont;
+
+	            }
+
+	            delete this.$el.data().fastsearch;
 
 	        }
 
 	    });
 
-	    SimpleLightbox.open = function(options) {
+	    $.extend(Fastsearch, {
 
-	        var instance = new SimpleLightbox(options);
+	        pickTo: function(dest, src, keys) {
 
-	        return options.content ? instance.setContent(options.content).show() : instance.showPosition(instance.options.startAt);
+	            $.each(keys, function(i, key) {
+	                dest[key] = (src && src[key]) || dest[key];
+	            });
 
+	            return dest;
+
+	        },
+
+	        selectorFromClass: function(classes) {
+
+	            return '.' + classes.replace(/\s/g, '.');
+
+	        }
+
+	    });
+
+	    Fastsearch.defaults = {
+	        wrapSelector: 'form', // fastsearch container defaults to closest form. Provide selector for something other
+	        url: null, // plugin will get data from data-url propery, url option or container action attribute
+	        responseType: 'JSON', // default expected server response type - can be set to html if that is what server returns
+	        preventSubmit: false, // prevent submit of form with enter keypress
+
+	        resultsContClass: 'fs_results', // html classes
+	        resultsOpenedClass: 'fsr_opened',
+	        groupClass: 'fs_group',
+	        itemClass: 'fs_result_item',
+	        groupTitleClass: 'fs_group_title',
+	        loadingClass: 'loading',
+	        noResultsClass: 'fs_no_results',
+	        focusedItemClass: 'focused',
+
+	        typeTimeout: 140, // try not to hammer server with request for each keystroke if possible
+	        minQueryLength: 2, // minimal number of characters needed for plugin to send request to server
+
+	        template: null, // provide your template function if you need one - function(data, fastsearchApi)
+	        mouseEvents: !('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0), // detect if client is touch enabled so plugin can decide if mouse specific events should be set.
+
+	        responseFormat: { // Adjust where plugin looks for data in your JSON server response
+	            url: 'url',
+	            html: 'html',
+	            label: 'label',
+	            groupCaption: 'caption',
+	            groupItems: 'items'
+	        },
+
+	        fillInputId: true, // on item select plugin will try to write selected id from item data model to input
+	        inputIdName: null, // on item select plugin will try to write selected id from item data model to input with this name
+
+	        apiInputName: null, // by default plugin will post input name as query parameter - you can provide custom one here
+
+	        noResultsText: 'No results found',
+	        onItemSelect: 'follow', // by default plugin follows selected link - other options available are "fillInput" and custom callback - function($item, model, fastsearchApi)
+
+	        parseResponse: null, // parse server response with your handler and return processed data - function(response, fastsearchApi)
+	        onResultsCreate: null, // adjust results element - function($allResults, data, fastsearchApi)
+	        onGroupCreate: null, // adjust group element when created - function($group, groupModel, fastsearchApi)
+	        onItemCreate: null // adjust item element when created - function($item, model, fastsearchApi)
 	    };
 
-	    $.fn.simpleLightbox = function(options) {
+	    $.fastsearch = Fastsearch;
 
-	        var lightboxInstance,
-	            $items = this;
-
+	    $.fn.fastsearch = function(options) {
 	        return this.each(function() {
-	            if (!$.data(this, 'simpleLightbox')) {
-	                lightboxInstance = lightboxInstance || new SimpleLightbox($.extend({}, options, {$items: $items}));
-	                $.data(this, 'simpleLightbox', lightboxInstance);
+	            if (!$.data(this, 'fastsearch')) {
+	                $.data(this, 'fastsearch', new Fastsearch(this, options));
 	            }
 	        });
-
 	    };
-
-	    $.simpleLightbox = $.SimpleLightbox = SimpleLightbox;
 
 	    return $;
 

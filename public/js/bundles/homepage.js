@@ -108,7 +108,7 @@
 	var View = __webpack_require__(3);
 	var MainNav = __webpack_require__(6);
 	var MainSearch = __webpack_require__(7);
-	var SimpleLightBox = __webpack_require__(11);
+	var SimpleLightBox = __webpack_require__(9);
 	module.exports = View.extend({
 
 	    delegatedEvents: false,
@@ -137,9 +137,9 @@
 
 	    showLoginModal: function(e) {
 
-	        __webpack_require__.e/* nsure */(4, function() {
+	        __webpack_require__.e/* nsure */(3, function() {
 
-	            var LoginModal = __webpack_require__(9);
+	            var LoginModal = __webpack_require__(11);
 	            new LoginModal();
 
 	        });
@@ -10498,7 +10498,7 @@
 
 	        self.$('.query').on('keydown', function(e) {
 
-	            __webpack_require__.e/* require */(3, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(8)]; (function(fastsearch) {
+	            __webpack_require__.e/* require */(1, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(8)]; (function(fastsearch) {
 
 	                self.$('.query').fastsearch({
 	                    onItemSelect: 'fillInput'
@@ -10514,9 +10514,7 @@
 
 /***/ },
 /* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var $ = __webpack_require__(2);
@@ -10533,7 +10531,7 @@
 	            e.preventDefault();
 	            var self = this;
 
-	            __webpack_require__.e/* require */(5, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(10)]; (function(simpleLightbox) {
+	            __webpack_require__.e/* require */(2, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(10)]; (function(simpleLightbox) {
 
 	                $.simpleLightbox.open({
 	                    $items: $items,
