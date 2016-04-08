@@ -27,6 +27,20 @@ module.exports = function(grunt) {
             }
         },
 
+        imagemin: {
+            dynamic: {
+                options: {
+                    optimizationLevel: 5
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= settings.distPath %>images',
+                    src: ['**/*.{png,jpg,gif}'],
+                    dest: '<%= settings.distPath %>images'
+                }]
+            }
+        },
+
         sync: {
             iconFont: {
                 files: [{
@@ -106,6 +120,7 @@ module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
 
     grunt.registerTask('default', ['watch']);
+    grunt.registerTask('imagemin', ['imagemin']);
     grunt.registerTask('build', ['jshint', 'jscs', 'sass', 'includereplace', 'sync']);
 
 };

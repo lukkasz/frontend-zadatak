@@ -147,9 +147,9 @@
 
 	    showLoginModal: function(e) {
 
-	        __webpack_require__.e/* nsure */(6, function() {
+	        __webpack_require__.e/* nsure */(1, function() {
 
-	            var LoginModal = __webpack_require__(11);
+	            var LoginModal = __webpack_require__(7);
 	            new LoginModal();
 
 	        });
@@ -158,7 +158,7 @@
 
 	    loadSimpleLightBox: function() {
 
-	        __webpack_require__.e/* nsure */(7, function() {
+	        __webpack_require__.e/* nsure */(2, function() {
 
 	            var SimpleLightbox = __webpack_require__(9);
 	            new SimpleLightbox({$el: $('.gallery-thumb')});
@@ -168,9 +168,9 @@
 
 	    loadMainSearch: function() {
 
-	        __webpack_require__.e/* nsure */(8, function() {
+	        __webpack_require__.e/* nsure */(3, function() {
 
-	            var MainSearch = __webpack_require__(7);
+	            var MainSearch = __webpack_require__(10);
 	            new MainSearch({$el: $('.mainSearch')});
 
 	        });
