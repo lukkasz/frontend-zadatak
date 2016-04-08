@@ -1,8 +1,7 @@
 var $ = require('jquery');
 var View = require('jquery-simple-view');
 var MainNav = require('js/components/mainNav');
-var MainSearch = require('js/components/mainSearch');
-var SimpleLightBox = require('js/components/simpleLightbox');
+
 module.exports = View.extend({
 
     delegatedEvents: false,
@@ -17,14 +16,25 @@ module.exports = View.extend({
             e.preventDefault();
             this.showLoginModal();
 
+        },
+
+        'click .gallery-thumb': function(e) {
+
+            e.preventDefault();
+            this.loadSimpleLightBox();
+
+        },
+
+        'keydown .mainSearch': function(e) {
+
+            this.loadMainSearch();
+
         }
     },
 
     setupBaseComponents: function() {
 
         this.mainNav = this.addView(new MainNav({$el: $('.mainNav')}));
-        this.mainSearch =  this.addView(new MainSearch({$el: $('.mainSearch')}));
-        this.gallery = this.addView(new SimpleLightBox({$el: $('.gallery-thumb')}));
         return this;
 
     },
@@ -38,5 +48,27 @@ module.exports = View.extend({
 
         });
 
+    },
+
+    loadSimpleLightBox: function() {
+
+        require.ensure([], function() {
+
+            var SimpleLightbox = require('js/components/simpleLightbox');
+            new SimpleLightbox({$el: $('.gallery-thumb')});
+
+        });
+    },
+
+    loadMainSearch: function() {
+
+        require.ensure([], function() {
+
+            var MainSearch = require('js/components/mainSearch');
+            new MainSearch({$el: $('.mainSearch')});
+
+        });
+
     }
+
 });

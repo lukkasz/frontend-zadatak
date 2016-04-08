@@ -107,8 +107,7 @@
 	var $ = __webpack_require__(2);
 	var View = __webpack_require__(3);
 	var MainNav = __webpack_require__(6);
-	var MainSearch = __webpack_require__(7);
-	var SimpleLightBox = __webpack_require__(9);
+
 	module.exports = View.extend({
 
 	    delegatedEvents: false,
@@ -123,28 +122,61 @@
 	            e.preventDefault();
 	            this.showLoginModal();
 
+	        },
+
+	        'click .gallery-thumb': function(e) {
+
+	            e.preventDefault();
+	            this.loadSimpleLightBox();
+
+	        },
+
+	        'keydown .mainSearch': function(e) {
+
+	            this.loadMainSearch();
+
 	        }
 	    },
 
 	    setupBaseComponents: function() {
 
 	        this.mainNav = this.addView(new MainNav({$el: $('.mainNav')}));
-	        this.mainSearch =  this.addView(new MainSearch({$el: $('.mainSearch')}));
-	        this.gallery = this.addView(new SimpleLightBox({$el: $('.gallery-thumb')}));
 	        return this;
 
 	    },
 
 	    showLoginModal: function(e) {
 
-	        __webpack_require__.e/* nsure */(3, function() {
+	        __webpack_require__.e/* nsure */(6, function() {
 
 	            var LoginModal = __webpack_require__(11);
 	            new LoginModal();
 
 	        });
 
+	    },
+
+	    loadSimpleLightBox: function() {
+
+	        __webpack_require__.e/* nsure */(7, function() {
+
+	            var SimpleLightbox = __webpack_require__(9);
+	            new SimpleLightbox({$el: $('.gallery-thumb')});
+
+	        });
+	    },
+
+	    loadMainSearch: function() {
+
+	        __webpack_require__.e/* nsure */(8, function() {
+
+	            var MainSearch = __webpack_require__(7);
+	            new MainSearch({$el: $('.mainSearch')});
+
+	        });
+
 	    }
+
 	});
 
 
@@ -153,7 +185,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	 * jQuery JavaScript Library v2.2.2
+	 * jQuery JavaScript Library v2.2.3
 	 * http://jquery.com/
 	 *
 	 * Includes Sizzle.js
@@ -163,7 +195,7 @@
 	 * Released under the MIT license
 	 * http://jquery.org/license
 	 *
-	 * Date: 2016-03-17T17:51Z
+	 * Date: 2016-04-05T19:26Z
 	 */
 
 	(function( global, factory ) {
@@ -219,7 +251,7 @@
 
 
 	var
-		version = "2.2.2",
+		version = "2.2.3",
 
 		// Define a local copy of jQuery
 		jQuery = function( selector, context ) {
@@ -9629,7 +9661,7 @@
 			// If it fails, this function gets "jqXHR", "status", "error"
 			} ).always( callback && function( jqXHR, status ) {
 				self.each( function() {
-					callback.apply( self, response || [ jqXHR.responseText, status, jqXHR ] );
+					callback.apply( this, response || [ jqXHR.responseText, status, jqXHR ] );
 				} );
 			} );
 		}
@@ -10478,70 +10510,6 @@
 	    hide: function() {
 
 	        this.$el.removeClass('opened');
-
-	    }
-
-	});
-
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var View = __webpack_require__(3);
-
-	module.exports = View.extend({
-
-	    initialize: function() {
-
-	        var self = this;
-
-	        self.$('.query').on('keydown', function(e) {
-
-	            __webpack_require__.e/* require */(1, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(8)]; (function(fastsearch) {
-
-	                self.$('.query').fastsearch({
-	                    onItemSelect: 'fillInput'
-	                });
-
-	            }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));});
-
-	        });
-	    }
-
-	});
-
-
-/***/ },
-/* 8 */,
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var $ = __webpack_require__(2);
-	var View = __webpack_require__(3);
-
-	module.exports = View.extend({
-
-	    initialize: function() {
-
-	        var $items = this.$el;
-
-	        $items.on('click', function(e) {
-
-	            e.preventDefault();
-	            var self = this;
-
-	            __webpack_require__.e/* require */(2, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(10)]; (function(simpleLightbox) {
-
-	                $.simpleLightbox.open({
-	                    $items: $items,
-	                    startAt: $items.index(self),
-	                    bindToItems: false
-	                });
-
-	            }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));});
-
-	        });
 
 	    }
 
